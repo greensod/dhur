@@ -1,4 +1,4 @@
-<?php include 'connection.php'; ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,133 +76,6 @@
 </html>
 
 <?php
-    /*if(isset($_POST['register'])){
-        $fname = $_POST['fname'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $mobile = $_POST['mobile'];
-        $dob = $_POST['dob'];
-        $gender = $_POST['gender'];
-        $interests = $_POST['interests'];
-
-        $query = "INSERT INTO user VALUES ('$fname', '$email', '$password', '$mobile', '$dob', '$gender', '$interests')";
-        $data=mysqli_query($conn, $query);
-
-        if ($data){
-            echo "Data inserted into database";
-        }
-        else{
-            echo "Failed to insert data into database";
-        }
-
-    }
-
-
-?>*/
- /*error_reporting(E_ALL);
- ini_set('display_errors', 1);
- if (isset($_POST['register'])) {
-    $fname = mysqli_real_escape_string($conn, $_POST['fname']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $mobile = mysqli_real_escape_string($conn, $_POST['mobile']);
-    $dob = mysqli_real_escape_string($conn, $_POST['dob']);
-    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
-    $interests = mysqli_real_escape_string($conn, $_POST['interests']);
-
-    // Validate inputs
-    if (empty($fname) || empty($email) || empty($password) || empty($mobile) || empty($dob) || $gender === "Not Selected") {
-        echo "Please fill in all fields.";
-        exit;
-    }
-
-    // Validate checkbox
-    if (!isset($_POST['terms'])) {
-        echo "You must agree to the terms and conditions.";
-        exit;
-    }
-
-    // Insert data
-    // $query = "INSERT INTO user (fname, email, password, mobile, dob, gender, interests) 
-    //           VALUES ('$fname', '$email', '$password', '$mobile', '$dob', '$gender', '$interests')";
-    
-    // $data = mysqli_query($conn, $query);
-    $check_query = "SELECT * FROM user WHERE email = '$email'";
-    $result = mysqli_query($conn, $check_query);
-    if (mysqli_num_rows($result) > 0) {
-        echo "You are already registered! Redirecting to <a href='login.php'>login page</a>.";
-        exit;
-    }
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-     
-    $stmt = $conn->prepare("INSERT INTO user (fname, email, password, mobile, dob, gender, interests) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssss", $fname, $email, $hashed_password, $mobile, $dob, $gender, $interests);
-    // if ($data) {
-    //     echo "Data inserted into database";
-    // } else {
-    //     echo "Failed to insert data into database: " . mysqli_error($conn);
-    // }
-    
-    if ($stmt->execute()) {
-        echo "Registration successful! Redirecting to <a href='login.php'>login page</a>.";
-        exit;
-    } else {
-        echo "Failed to insert data into database: " . $stmt->error;
-    }
-    $stmt->close();
-
-
-}
-?>*/
-    /*error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-    
-    if (isset($_POST['register'])) {
-        $fname = mysqli_real_escape_string($conn, $_POST['fname']);
-        $email = mysqli_real_escape_string($conn, $_POST['email']);
-        $password = mysqli_real_escape_string($conn, $_POST['password']);
-        $mobile = mysqli_real_escape_string($conn, $_POST['mobile']);
-        $dob = mysqli_real_escape_string($conn, $_POST['dob']);
-        $gender = mysqli_real_escape_string($conn, $_POST['gender']);
-        $interests = mysqli_real_escape_string($conn, $_POST['interests']);
-
-        // Validate inputs
-        if (empty($fname) || empty($email) || empty($password) || empty($mobile) || empty($dob) || $gender === "Not Selected") {
-            echo "Please fill in all fields.";
-            exit;
-        }
-
-        // Validate checkbox
-        if (!isset($_POST['terms'])) {
-            echo "You must agree to the terms and conditions.";
-            exit;
-        }
-
-        // Check if the email already exists
-        $check_query = "SELECT * FROM user WHERE email = '$email'";
-        $result = mysqli_query($conn, $check_query);
-        if (mysqli_num_rows($result) > 0) {
-            echo "You are already registered! Redirecting to <a href='login.php'>login page</a>.";
-            exit;
-        }
-
-        // Hash the password
-        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-        // Use a prepared statement to insert data
-        $stmt = $conn->prepare("INSERT INTO user (fname, email, password, mobile, dob, gender, interests) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssss", $fname, $email, $hashed_password, $mobile, $dob, $gender, $interests);
-        
-        if ($stmt->execute()) {
-            echo "Registration successful! Redirecting to <a href='login.php'>login page</a>.";
-            exit;
-        } else {
-            echo "Failed to insert data into database: " . $stmt->error;
-        }
-        
-        $stmt->close();
-    }
-?>*/
 
  include 'connection.php';
  session_start();
@@ -218,19 +91,17 @@
     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
     $interests = mysqli_real_escape_string($conn, $_POST['interests']);
 
-    // Validate inputs
     if (empty($fname) || empty($email) || empty($password) || empty($mobile) || empty($dob) || $gender === "Not Selected") {
         echo "Please fill in all fields.";
         exit;
     }
 
-    // Validate checkbox
     if (!isset($_POST['terms'])) {
         echo "You must agree to the terms and conditions.";
         exit;
     }
 
-    // Check if the email already exists
+    
     $check_query = "SELECT * FROM user WHERE email = '$email'";
     $result = mysqli_query($conn, $check_query);
     if (mysqli_num_rows($result) > 0) {
@@ -238,10 +109,8 @@
         exit;
     }
 
-    // Hash the password
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-    // Use a prepared statement to insert data
     $stmt = $conn->prepare("INSERT INTO user (fname, email, password, mobile, dob, gender, interests) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssssss", $fname, $email, $hashed_password, $mobile, $dob, $gender, $interests);
 

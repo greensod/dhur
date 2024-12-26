@@ -2,25 +2,24 @@
 session_start();
 include 'connection.php';
 
-// Check if the user is logged in
+
 if (!isset($_SESSION['user_email'])) {
-    // Redirect to login page if not logged in
     header("Location: login.php");
     exit;
 }
 
-// Fetch user details (assuming they were stored in the session)
-$user_name = $_SESSION['user_name']; // You would store the name during login
+
+$user_name = $_SESSION['user_name']; 
 $query = "SELECT user_id,fname, email, mobile, dob, gender, interests FROM user WHERE email != '$user_email'";
 $result = mysqli_query($conn, $query);
 
 $users = [];
 if ($result && mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
-        $users[] = $row; // Add each user to the $users array
+        $users[] = $row; 
     }
 } else {
-    $message = "No other users found."; // Save the message to display later
+    $message = "No other users found."; 
 }
 ?>
 
@@ -30,7 +29,6 @@ if ($result && mysqli_num_rows($result) > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="style.css"> -->
     <title>Home</title>
     <style>
         .user-table {
@@ -53,7 +51,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         .navbar {
             
             width: 100%;
-            background-color: rgba(178, 235, 221, 0.9); /* Slightly transparent background */
+            background-color: rgba(178, 235, 221, 0.9); /
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 10px 20px;
             display: flex;
@@ -61,7 +59,7 @@ if ($result && mysqli_num_rows($result) > 0) {
             justify-content: space-between;
             position: fixed;
             top: 0;
-            z-index: 1000; /* Ensures navbar stays above other content */
+            z-index: 1000;
             box-sizing: border-box;
     
         }
@@ -75,7 +73,7 @@ if ($result && mysqli_num_rows($result) > 0) {
             font-size: 24px;
             font-weight: bold;
             color: rgb(230, 160, 192);
-            margin-right: 20px; /* Minimum gap */
+            margin-right: 20px; 
         }
         .navbar .nav-links a {
             text-decoration: none;
@@ -94,7 +92,7 @@ if ($result && mysqli_num_rows($result) > 0) {
             font-size: 24px;
             font-weight: bold;
             color: rgb(230, 160, 192);
-            margin-right: 20px; /* Minimum gap */
+            margin-right: 20px;
             margin-top: 80px;
         }
     </style>
@@ -122,12 +120,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                 </thead>
                 <tbody>
                     <?php foreach ($users as $other_user): ?>
-                        <!-- <tr>
-                            <td><?php echo htmlspecialchars($other_user['fname']); ?></td>
-                            <td><?php echo htmlspecialchars($other_user['interests']); ?></td>
-                        </tr> -->
                         <tr>
-                            <!-- Each name links to the profile.php of the respective user -->
                             <td>
                                <a href="view_user.php?user_id=<?php echo $other_user['user_id']; ?>">
                                     <?php echo htmlspecialchars($other_user['fname']); ?>
