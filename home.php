@@ -51,7 +51,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         .navbar {
             
             width: 100%;
-            background-color: rgba(178, 235, 221, 0.9); /
+            background-color: rgba(178, 235, 221, 0.9); 
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 10px 20px;
             display: flex;

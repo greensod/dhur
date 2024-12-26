@@ -2,48 +2,40 @@
 session_start();
 include 'connection.php';
 
-// Check if the user is logged in
+
 if (!isset($_SESSION['user_email'])) {
     header("Location: login.php");
     exit;
 }
 
-// Get the logged-in user's email
+
 $user_email = $_SESSION['user_email'];
 
-// Fetch the user details
 $query = "SELECT user_id, fname, email, mobile, dob, gender, interests, profile_picture FROM user WHERE email = '$user_email'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 
-// Handle Profile Picture Upload
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_FILES['profile_picture'])) {
-        // Check for any errors in the file upload
         if ($_FILES['profile_picture']['error'] != 0) {
             $error_message = "Error uploading file. Error code: " . $_FILES['profile_picture']['error'];
         } else {
-            // Check the file type (you can add more types as needed)
+        
             $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
             if (in_array($_FILES['profile_picture']['type'], $allowed_types)) {
-                // Define the upload directory
                 $upload_dir = 'uploads/profile_pictures/';
                 
-                // Ensure the directory exists
                 if (!file_exists($upload_dir)) {
                     mkdir($upload_dir, 0777, true);  // Create directory if it doesn't exist
                 }
 
-                // Set a unique filename for the uploaded image
+                
                 $file_name = time() . '_' . basename($_FILES['profile_picture']['name']);
                 $upload_file = $upload_dir . $file_name;
 
-                // Move the uploaded file to the destination directory
                 if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $upload_file)) {
-                    // Update the profile picture in the database
                     $update_query = "UPDATE user SET profile_picture = '$file_name' WHERE email = '$user_email'";
                     if (mysqli_query($conn, $update_query)) {
-                        // Redirect to the profile page after successful upload
                         header("Location: profile.php");
                         exit;
                     } else {
@@ -57,17 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     } elseif (isset($_POST['remove_picture'])) {
-        // Remove profile picture
         $update_query = "UPDATE user SET profile_picture = NULL WHERE email = '$user_email'";
         if (mysqli_query($conn, $update_query)) {
-            // Remove the physical file if it exists
             if ($user['profile_picture']) {
                 $file_path = 'uploads/profile_pictures/' . $user['profile_picture'];
                 if (file_exists($file_path)) {
                     unlink($file_path);
                 }
             }
-            // Redirect to refresh the profile page
             header("Location: profile.php");
             exit;
         } else {
@@ -102,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin: 20px;
         }
         .profile-form input[type="file"] {
-            display: none; /* Hide the default file input */
+            display: none; 
         }
         .file-label {
             padding: 10px 20px;
@@ -147,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .navbar {
             
             width: 100%;
-            background-color: rgba(178, 235, 221, 0.9); /* Slightly transparent background */
+            background-color: rgba(178, 235, 221, 0.9); 
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 10px 20px;
             display: flex;
@@ -155,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             justify-content: space-between;
             position: fixed;
             top: 0;
-            z-index: 1000; /* Ensures navbar stays above other content */
+            z-index: 1000; 
             box-sizing: border-box;
     
         }
@@ -164,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-size: 24px;
             font-weight: bold;
             color: rgb(230, 160, 192);
-            margin-right: 20px; /* Minimum gap */
+            margin-right: 20px; 
         }
 
         .navbar .nav-links {
@@ -207,6 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php if ($user['profile_picture']): ?>
             <img src="uploads/profile_pictures/<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture">
             <form action="profile.php" method="POST" class="profile-form">
+                
                 <button type="submit" name="remove_picture" class="btn">Remove Picture</button>
             </form>
         <?php else: ?>
@@ -239,7 +229,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </div>
 
 <script>
-    // Existing preview script here
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var imagePreview = document.getElementById('image_preview');
+            imagePreview.innerHTML = '<img src="' + reader.result + '" alt="Profile Picture" class="preview-img">';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
 </script>
 
 </body>
