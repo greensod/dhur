@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
         }
 
-        .navbar .welcome {
+        .navbar .exchidea {
             font-size: 24px;
             font-weight: bold;
             color: rgb(230, 160, 192);
@@ -194,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div class="container">
     <div class="navbar">
-      <span class="welcome">EXCHIDEA</span>
+      <span class="exchidea">EXCHIDEA</span>
       <div class="nav-links">
         <a href="edit_profile.php">Edit Profile</a>
         <a href="home.php">Home</a>
