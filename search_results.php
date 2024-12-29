@@ -111,11 +111,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .matches-table th {
             background-color: #efc9c9;
         }
+        .search-bar button{
+            text-decoration: none;
+            padding: 6px 10px;
+            background-color: rgb(230, 182, 206);
+            color: white;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            border: none;
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
         <span class="exchidea">EXCHIDEA</span>
+        <div class="search-bar">
+            <form method="POST" action="search_results.php">
+                <select name="search_type" required>
+                    <option value="">Select</option>
+                    <option value="skill">Skill</option>
+                    <option value="interest">Interest</option>
+                </select>
+                <input type="text" name="search_term" placeholder="Search..." required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
         <div class="nav-links">
             <a href="home.php">Home</a>
             <a href="profile.php">Profile</a>

@@ -177,7 +177,7 @@ if (!empty($user_interests)) {
     <h1>Welcome to Exchidea, <?php echo htmlspecialchars($user_name); ?>!</h1>
     <p>Your interests are: <strong><?php echo htmlspecialchars(implode(', ', $user_interests)); ?></strong></p>
 
-    <h2>Matching Users:</h2>
+    <h2>Matching Users Based on Skill:</h2>
     <?php if (!empty($matches)): ?>
         <table class="matches-table">
             <thead>
