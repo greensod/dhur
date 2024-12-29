@@ -15,14 +15,11 @@ if (!isset($_GET['user_id']) || !is_numeric($_GET['user_id'])) {
 
 $user_id = $_GET['user_id'];
 
-// Debugging: Output the user_id to check if it's correct
-// echo "User ID: " . $user_id . "<br>"; 
-
 // Fetch user details based on user_id
 $query = "SELECT fname, interests, profile_picture FROM user WHERE user_id = $user_id";
 $result = mysqli_query($conn, $query);
 
-// Debugging: Check if query executed correctly
+// Check if query executed correctly
 if (!$result) {
     die("Error with query: " . mysqli_error($conn));
 }
@@ -33,6 +30,18 @@ if ($result && mysqli_num_rows($result) > 0) {
     die("User not found.");
 }
 
+// Fetch user skills from the user_skills table
+$query_skills = "SELECT skill_name FROM user_skills WHERE user_id = $user_id";
+$result_skills = mysqli_query($conn, $query_skills);
+
+if (!$result_skills) {
+    die("Error fetching skills: " . mysqli_error($conn));
+}
+
+$skills = [];
+while ($row = mysqli_fetch_assoc($result_skills)) {
+    $skills[] = $row['skill_name'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -83,6 +92,15 @@ if ($result && mysqli_num_rows($result) > 0) {
         .back-link:hover {
             background-color: rgb(130, 242, 227);
         }
+        .skills-list {
+            margin-top: 20px;
+            text-align: left;
+            padding-left: 20px;
+        }
+        .skills-list li {
+            font-size: 16px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -96,6 +114,20 @@ if ($result && mysqli_num_rows($result) > 0) {
         <?php endif; ?>
         <h1><?php echo htmlspecialchars($user['fname']); ?></h1>
         <p><strong>Interests:</strong> <?php echo htmlspecialchars($user['interests']); ?></p>
+
+        <?php if (!empty($skills)): ?>
+            <div class="skills-list">
+                <h3>Skills:</h3>
+                <ul>
+                    <?php foreach ($skills as $skill): ?>
+                        <li><?php echo htmlspecialchars($skill); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php else: ?>
+            <p>No skills listed.</p>
+        <?php endif; ?>
+
         <a href="home.php" class="back-link">Back to Home</a>
     </div>
 </body>
