@@ -5,7 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
+
     <title>Login</title>
 </head>
 <body>
@@ -26,7 +27,11 @@
                 </div>
             </div>
         </form>
+       
         <p>Don't have an account? <a href="form.php">Register here</a>.</p>
+        <div class="back">
+            <input type="button" value="Go Back" class="btn" onclick="window.location.href='index.php'">
+        </div>
 
     </div>
 </body>

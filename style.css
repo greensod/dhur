@@ -6,7 +6,7 @@
 }
 body
 {
-    background-color: rgb(169, 230, 230);
+    background-color:rgba(249, 234, 240, 0.9);
     padding: 0 10px;
 }
 .container{
@@ -93,7 +93,7 @@ body
 .container .form .input_field .textarea:focus
 .container .form .input_field select:focus
 {
-    border: 2px solid rgb(170, 227, 212);
+    border: 2px solid rgba(249, 234, 240, 0.9);
 }
 .container .form .input_field p
 {
@@ -159,6 +159,22 @@ body
     border-radius: 5px;
     outline: none;
     transition: all 0.5s ease;
+    margin-bottom: 15px;
+}
+.container .form .inputfield .btn
+{
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    background: rgb(230, 158, 195);
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.5s ease;
+    margin-bottom: 6px;
 }
 .container .form .input_field:last-child
 {
@@ -166,9 +182,32 @@ body
 }
 .container .form .input_field .btn:hover
 {
-    background: rgb(170, 227, 212);
+    background: rgba(165, 225, 223, 0.9);
 }
 
+.container .back .btn{
+    background-color:rgb(230, 158, 195);
+    border: none;
+    margin: 2px;
+    margin-top: 15px;
+    padding: 8px 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.5s ease;
+}
+
+.container .backf .btn{
+    background-color:rgb(230, 158, 195);
+    border: none;
+    padding: 8px 10px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.5s ease;
+}
 
 
 @media (max-width: 420px)
