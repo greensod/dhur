@@ -170,6 +170,7 @@ if (!empty($user_interests)) {
         <div class="nav-links">
             <a href="profile.php">Profile</a>
             <a href="add_skills.php">Add Skills</a>
+            <a href="friends.php">Friends</a>
             <a href="logout.php">Logout</a>
         </div>
     </div>
