@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css?v=<?php echo time(); ?>">
     <title>Form</title>
 </head>
 <body>
@@ -62,16 +62,22 @@
                 <p>Agree with terms and conditions</p>
                 
             </div>
-            <div class="input_field">
+            <div class="inputfield">
                 <input type="submit" value="Register" class="btn" name="register">
             </div>
             <div class="input_field">
                 <input type="button" value="Login" class="btn" onclick="window.location.href='login.php'">
             </div>
+            
 
         </div>
         </form>
+        <div class="backf">
+            <input type="button" value="Go Back" class="btn" onclick="window.location.href='index.php'">
+        </div>
+        
     </div>
+    
 </body>
 </html>
 

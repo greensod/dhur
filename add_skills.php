@@ -123,27 +123,27 @@ if (isset($_GET['remove_skill_id'])) {
             border-radius: 4px;
         }
         .skill-list button {
-            background-color: #f44336;
+            background-color:rgb(198, 27, 101);
             color: white;
             border: none;
             cursor: pointer;
         }
         .skill-list button:hover {
-            background-color: #d32f2f;
+            background-color:rgb(198, 27, 101);
         }
         /* Style for the Back to Profile button */
         .back-to-profile {
             display: inline-block;
             padding: 10px 20px;
             margin-bottom: 20px;
-            background-color: rgb(128, 222, 217);
+            background-color: rgb(230, 182, 206);
             color: white;
             text-decoration: none;
             font-weight: bold;
             border-radius: 5px;
         }
         .back-to-profile:hover {
-            background-color: rgb(88, 191, 188);
+            background-color: rgb(130, 242, 227);
         }
     </style>
 </head>

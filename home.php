@@ -2,27 +2,46 @@
 session_start();
 include 'connection.php';
 
-
 if (!isset($_SESSION['user_email'])) {
     header("Location: login.php");
     exit;
 }
 
+$user_email = $_SESSION['user_email'];
+$user_name = $_SESSION['user_name'];
 
-$user_name = $_SESSION['user_name']; 
-$query = "SELECT user_id,fname, email, mobile, dob, gender, interests FROM user WHERE email != '$user_email'";
+// Get the logged-in user's interests
+$query = "SELECT interests FROM user WHERE email = '$user_email'";
 $result = mysqli_query($conn, $query);
+$user = mysqli_fetch_assoc($result);
+$user_interests = $user ? explode(',', $user['interests']) : [];
 
-$users = [];
-if ($result && mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $users[] = $row; 
+// Fetch other users whose skills match the logged-in user's interests
+if (!empty($user_interests)) {
+    $interests_condition = array_map(function ($interest) use ($conn) {
+        return "FIND_IN_SET('" . mysqli_real_escape_string($conn, trim($interest)) . "', us.skill_name)";
+    }, $user_interests);
+    $interests_condition = implode(' OR ', $interests_condition);
+
+    $query = "
+        SELECT u.user_id, u.fname, us.skill_name, us.level, us.duration
+        FROM user u
+        JOIN user_skills us ON u.user_id = us.user_id
+        WHERE u.email != '$user_email' AND ($interests_condition)
+    ";
+    $result = mysqli_query($conn, $query);
+    $matches = [];
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $matches[] = $row;
+        }
+    } else {
+        $message = "No matches found based on your interests.";
     }
 } else {
-    $message = "No other users found."; 
+    $message = "You have not set any interests.";
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,50 +50,40 @@ if ($result && mysqli_num_rows($result) > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <style>
-        .user-table {
+        /* Prevent horizontal scrolling */
+        body {
+            margin: 0;
+            padding: 0;
             width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 18px;
-            text-align: left;
-            background-color: lightblue;
+            box-sizing: border-box;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
 
-        .user-table th, .user-table td {
-            border: 1px solid #ecbfbf;
-            padding: 8px;
-        }
-
-        .user-table th {
-            background-color: #efc9c9;
-        }
+        /* Navbar */
         .navbar {
-            
             width: 100%;
-            background-color: rgba(178, 235, 221, 0.9); 
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: rgba(249, 234, 240, 0.9);
             padding: 10px 20px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            position: fixed;
-            top: 0;
-            z-index: 1000;
-            box-sizing: border-box;
-    
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .navbar .nav-links {
-            display: flex;
-            gap: 7px;
-            margin-left: auto; 
-        }
+        /* Left part of the navbar (logo) */
         .navbar .exchidea {
             font-size: 24px;
             font-weight: bold;
             color: rgb(230, 160, 192);
-            margin-right: 20px; 
         }
+
+        /* Right part of the navbar (buttons) */
+        .navbar .nav-links {
+            display: flex;
+            gap: 15px;
+            margin-right: 30px;
+        }
+
         .navbar .nav-links a {
             text-decoration: none;
             padding: 6px 10px;
@@ -85,57 +94,118 @@ if ($result && mysqli_num_rows($result) > 0) {
             font-size: 14px;
         }
 
-        .navbar .nav-links a:hover {
-            background-color: rgb(130, 242, 227);
+        /* Navbar search bar */
+        .navbar .search-bar {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            flex-grow: 1; /* Allow the search bar to grow and center */
+            max-width: 400px; /* Max width for search bar */
+            margin: 0 auto; /* Center the search bar */
         }
-        .welcome {
-            font-size: 24px;
+
+        /* Form elements in the search bar */
+        .navbar .search-bar select,
+        .navbar .search-bar input,
+        .navbar .search-bar button {
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .navbar .search-bar input {
+            width: 200px;
+        }
+
+        /* Matches table styling */
+        .matches-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            background-color: rgba(249, 234, 240, 0.9);
+        }
+        .matches-table a {
+            text-decoration: none; /* Removes the underline */
+            color: black;
+        }
+  
+
+        .matches-table th, .matches-table td {
+            border: 1px solid #ecbfbf;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .matches-table th {
+            background-color: #efc9c9;
+        }
+        
+        .search-bar button{
+            text-decoration: none;
+            padding: 6px 10px;
+            background-color: rgb(230, 182, 206);
+            color: white;
+            border-radius: 5px;
             font-weight: bold;
-            color: rgb(230, 160, 192);
-            margin-right: 20px;
-            margin-top: 80px;
+            font-size: 14px;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="navbar">
-         <span class="exchidea">EXCHIDEA</span>
-         <div class="nav-links">
-            <a href="profile.php" class="btn">Profile</a>
-            <a href="logout.php" class="btn">Logout</a>
-         </div>
+
+    <div class="navbar">
+        <span class="exchidea">EXCHIDEA</span>
+        <div class="search-bar">
+            <form method="POST" action="search_results.php">
+                <select name="search_type" required>
+                    <option value="">Select</option>
+                    <option value="skill">Skill</option>
+                    <option value="interest">Interest</option>
+                </select>
+                <input type="text" name="search_term" placeholder="Search..." required>
+                <button type="submit">Search</button>
+            </form>
         </div>
-        <h1 class="welcome">Welcome to Exchidea, <?php echo htmlspecialchars($user_name); ?>!</h1>
-        <p>You have successfully logged in.</p>
-
-        <h2>Other Registered Users:</h2>
-        <?php if (!empty($users)): ?>
-            <table class="user-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Interests</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($users as $other_user): ?>
-                        <tr>
-                            <td>
-                               <a href="view_user.php?user_id=<?php echo $other_user['user_id']; ?>">
-                                    <?php echo htmlspecialchars($other_user['fname']); ?>
-                                </a>
-                            </td>
-                            <td><?php echo htmlspecialchars($other_user['interests']); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <p>No other users found.</p>
-        <?php endif; ?>
-
-        
+        <div class="nav-links">
+            <a href="profile.php">Profile</a>
+            <a href="add_skills.php">Add Skills</a>
+            <a href="logout.php">Logout</a>
+        </div>
     </div>
+
+    <h1>Welcome to Exchidea, <?php echo htmlspecialchars($user_name); ?>!</h1>
+    <p>Your interests are: <strong><?php echo htmlspecialchars(implode(', ', $user_interests)); ?></strong></p>
+
+    <h2>Matching Users:</h2>
+    <?php if (!empty($matches)): ?>
+        <table class="matches-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Skill</th>
+                    <th>Level</th>
+                    <th>Available Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($matches as $match): ?>
+                    <tr>
+                        <td>
+                            <a href="view_user.php?user_id=<?php echo $match['user_id']; ?>">
+                                <?php echo htmlspecialchars($match['fname']); ?>
+                            </a>
+                        </td>
+                        <td><?php echo htmlspecialchars($match['skill_name']); ?></td>
+                        <td><?php echo htmlspecialchars($match['level']); ?></td>
+                        <td><?php echo htmlspecialchars($match['duration']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p><?php echo htmlspecialchars($message); ?></p>
+    <?php endif; ?>
+
 </body>
 </html>

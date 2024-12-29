@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             cursor: pointer;
         }
         .btn:hover {
-            background-color: rgb(128, 222, 217);
+            background-color: rgb(130, 242, 227);
         }
         .user-details {
             margin: 20px;
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         .navbar {
             width: 100%;
-            background-color: rgba(178, 235, 221, 0.9); 
+            background-color: rgba(249, 234, 240, 0.9); 
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 10px 20px;
             display: flex;

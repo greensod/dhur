@@ -2,21 +2,18 @@
 session_start();
 include 'connection.php';
 
-// Check if the user is logged in
+
 if (!isset($_SESSION['user_email'])) {
     header("Location: login.php");
     exit;
 }
 
-// Get the logged-in user's email
 $user_email = $_SESSION['user_email'];
 
-// Fetch the user details
 $query = "SELECT user_id, fname, email, mobile, dob, gender, interests FROM user WHERE email = '$user_email'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 
-// Handle Profile Update
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -25,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
     $interests = mysqli_real_escape_string($conn, $_POST['interests']);
 
-    // Update query
     $update_query = "UPDATE user SET fname='$name', email='$email', mobile='$mobile', dob='$dob', gender='$gender', interests='$interests' WHERE email='$user_email'";
     if (mysqli_query($conn, $update_query)) {
         header("Location: profile.php");
