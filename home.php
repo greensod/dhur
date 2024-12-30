@@ -115,15 +115,21 @@ if (!empty($user_interests)) {
         .navbar .search-bar input {
             width: 200px;
         }
+        .centered-heading {
+    text-align: center; /* Centers the text horizontally */
+    margin: 0; /* Remove any default margins */
+    padding-bottom: 5px; /* Add some padding below the heading to control the space */
+    margin-top: 100px; /* Add some margin at the top */
+}
 
-        /* Matches table styling */
-        .matches-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 18px;
-            background-color: rgba(249, 234, 240, 0.9);
-        }
+.matches-table {
+    width: 40%;
+    border-collapse: collapse;
+    margin: 0 auto; /* Center the table horizontally */
+    font-size: 18px;
+    background-color: rgba(249, 234, 240, 0.9);
+}
+
         .matches-table a {
             text-decoration: none; /* Removes the underline */
             color: black;
@@ -131,7 +137,7 @@ if (!empty($user_interests)) {
   
 
         .matches-table th, .matches-table td {
-            border: 1px solid #ecbfbf;
+            border: 1px solid rgb(243, 189, 189);
             padding: 10px;
             text-align: left;
         }
@@ -149,6 +155,9 @@ if (!empty($user_interests)) {
             font-weight: bold;
             font-size: 14px;
             border: none;
+        }
+        .matches-table .heading{
+            color: white;
         }
     </style>
 </head>
@@ -178,11 +187,11 @@ if (!empty($user_interests)) {
     <h1>Welcome to Exchidea, <?php echo htmlspecialchars($user_name); ?>!</h1>
     <p>Your interests are: <strong><?php echo htmlspecialchars(implode(', ', $user_interests)); ?></strong></p>
 
-    <h2>Matching Users Based on Skill:</h2>
+    <h4 class="centered-heading">Matching Users Based on Skill:</h4>
     <?php if (!empty($matches)): ?>
         <table class="matches-table">
             <thead>
-                <tr>
+                <tr class="heading">
                     <th>Name</th>
                     <th>Skill</th>
                     <th>Level</th>
@@ -193,7 +202,7 @@ if (!empty($user_interests)) {
                 <?php foreach ($matches as $match): ?>
                     <tr>
                         <td>
-                            <a href="view_user.php?user_id=<?php echo $match['user_id']; ?>">
+                            <a href="view_user.php?user_id=<?php echo $match['user_id']; ?>" title="Click on the name to view profile">
                                 <?php echo htmlspecialchars($match['fname']); ?>
                             </a>
                         </td>
@@ -201,6 +210,7 @@ if (!empty($user_interests)) {
                         <td><?php echo htmlspecialchars($match['level']); ?></td>
                         <td><?php echo htmlspecialchars($match['duration']); ?></td>
                     </tr>
+
                 <?php endforeach; ?>
             </tbody>
         </table>

@@ -93,11 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 14px;
         }
         .matches-table {
-            width: 100%;
+            width: 80%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 20px auto;
             font-size: 18px;
             background-color: rgba(249, 234, 240, 0.9);
+            margin-top: 60px;
         }
         .matches-table a {
             text-decoration: none; /* Removes the underline */
@@ -109,7 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-align: left;
         }
         .matches-table th {
-            background-color: #efc9c9;
+            background-color:rgb(241, 192, 192);
+        }
+        .matches-table .heading {
+            color: white;
         }
         .search-bar button{
             text-decoration: none;
@@ -145,11 +149,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <h1>Search Results</h1>
+    <!-- <h1>Search Results</h1> -->
     <?php if (isset($matches) && !empty($matches)): ?>
         <table class="matches-table">
             <thead>
-                <tr>
+                <tr class="heading">
                     <th>Name</th>
                     <?php if ($search_type === 'skill'): ?>
                         <th>Skill</th>
