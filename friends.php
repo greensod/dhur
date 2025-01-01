@@ -43,8 +43,53 @@ $friends = getFriendsList($current_user_id);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Friends</title>
+    <style>
+        .navbar {
+            width: 100%;
+            background-color: rgba(249, 234, 240, 0.9);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Left part of the navbar (logo) */
+        .navbar .exchidea {
+            font-size: 24px;
+            font-weight: bold;
+            color: rgb(230, 160, 192);
+        }
+
+        /* Right part of the navbar (buttons) */
+        .navbar .nav-links {
+            display: flex;
+            gap: 15px;
+            margin-right: 30px;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            padding: 6px 10px;
+            background-color: rgb(230, 182, 206);
+            color: white;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .navbar .nav-links a:hover {
+            background-color: rgb(130, 242, 227);
+        }
+    </style>
 </head>
 <body>
+<div class="navbar">
+        <span class="exchidea">EXCHIDEA</span>
+        <div class="nav-links">
+            <a href="profile.php">Profile</a>
+            <a href="home.php">Home</a>
+        </div>
+    </div>
     <h1>Friend Requests</h1>
     <?php if (mysqli_num_rows($pending_requests) > 0): ?>
         <ul>

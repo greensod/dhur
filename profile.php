@@ -156,10 +156,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             background-color: rgb(130, 242, 227);
         }
         .user-skills table {
-            width: 80%; /* Adjust the width to your preference */
-            margin: 20px auto; /* Centers the table horizontally */
+            width: 80%; 
+            margin: 20px auto; 
             border-collapse: collapse;
-            background-color: rgba(249, 234, 240, 0.9); /* Same background color as your home table */
+            background-color: rgba(249, 234, 240, 0.9); 
             font-size: 16px;
         }
 
@@ -170,17 +170,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .user-skills th {
-            background-color: rgb(230, 182, 206); /* Light pink background color for header */
+            background-color: rgb(230, 182, 206); 
             color: white;
         }
 
         .user-skills td {
-            background-color: white; /* White background for table cells */
+            background-color: white; 
         }
 
     </style>
     <script>
-        // JavaScript to preview profile picture before uploading
         function previewImage(event) {
             const output = document.getElementById('profilePicturePreview');
             output.src = URL.createObjectURL(event.target.files[0]);
@@ -190,49 +189,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <div class="container">
-        <!-- Navbar -->
         <div class="navbar">
             <span class="exchidea">EXCHIDEA</span>
             <div class="nav-links">
                 <a href="edit_profile.php">Edit Profile</a>
-                <a href="add_skills.php">Add Skills</a> <!-- Add Skills Button -->
+                <a href="add_skills.php">Add Skills</a> 
                 <a href="home.php">Home</a>
                 <a href="logout.php">Logout</a>
             </div>
         </div>
 
-        <!-- Profile Picture -->
-        <!-- Profile Picture -->
-<div class="profile-picture">
-    <?php if ($user['profile_picture']): ?>
-        <!-- Display the user's profile picture -->
-        <img src="uploads/profile_pictures/<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture">
-        <!-- Only show the Remove Picture button if a profile picture is already set -->
-        <form action="profile.php" method="POST" class="profile-form">
-            <button type="submit" name="remove_picture" class="btn">Remove Picture</button>
+        
+        
+    <div class="profile-picture">
+        <?php if ($user['profile_picture']): ?>
+        
+            <img src="uploads/profile_pictures/<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture">
+            <form action="profile.php" method="POST" class="profile-form">
+                <button type="button" class="btn" 
+                    onclick="if (confirm('Are you sure you want to remove the picture?')) { this.form.submit(); }">
+                    Remove Picture
+                </button>
+            </form>
+
+        <?php else: ?>
+            <img src="images/default_profile_picture.jpg" alt="Default Profile Picture">
+        <?php endif; ?>
+
+    
+        <form action="profile.php" method="POST" enctype="multipart/form-data">
+        <!-- Show the Select Picture button if no picture is uploaded -->
+        <?php if (!$user['profile_picture']): ?>
+            <label for="profile_picture" class="file-label">Select Picture</label>
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(event)" style="display:none;">
+            <br><br>
+            <img id="profilePicturePreview" style="display:none; width:150px; height:150px; border-radius:50%; margin-top: 10px;" alt="Profile Picture Preview">
+            <br><br>
+            <button type="submit" class="btn">Upload Picture</button>
+        <?php endif; ?>
         </form>
-    <?php else: ?>
-        <!-- Display the default profile picture if no profile picture is uploaded -->
-        <img src="images/default_profile_picture.jpg" alt="Default Profile Picture">
-    <?php endif; ?>
 
-    <!-- Upload new profile picture -->
-    <form action="profile.php" method="POST" enctype="multipart/form-data">
-    <!-- Show the Select Picture button if no picture is uploaded -->
-    <?php if (!$user['profile_picture']): ?>
-        <label for="profile_picture" class="file-label">Select Picture</label>
-        <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(event)" style="display:none;">
-        <br><br>
-        <img id="profilePicturePreview" style="display:none; width:150px; height:150px; border-radius:50%; margin-top: 10px;" alt="Profile Picture Preview">
-        <br><br>
-        <button type="submit" class="btn">Upload Picture</button>
-    <?php endif; ?>
-</form>
-
-</div>
+    </div>
 
 
-        <!-- User Details -->
+        
         <div class="user-details">
             <h2>Your Profile Information:</h2>
             <p><strong>Name:</strong> <?php echo htmlspecialchars($user['fname']); ?></p>
@@ -243,7 +243,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p><strong>Interests:</strong> <?php echo htmlspecialchars($user['interests']); ?></p>
         </div>
 
-        <!-- User Skills -->
         <div class="user-skills">
             <h2>Your Skills:</h2>
             <?php if (!empty($skills)): ?>

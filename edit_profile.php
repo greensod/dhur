@@ -39,8 +39,132 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Edit Profile</title>
+    
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: rgb(245, 225, 225);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column; /* Ensure the content follows the navbar */
+        height: 100vh; /* Full height for the body */
+    }
+
+    .navbar {
+        width: 100%;
+        background-color: rgba(249, 234, 240, 0.9);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000; /* Keep navbar on top */
+    }
+
+    /* Left part of the navbar (logo) */
+    .navbar .exchidea {
+        font-size: 24px;
+        font-weight: bold;
+        color: rgb(230, 160, 192);
+    }
+
+    /* Right part of the navbar (buttons) */
+    .navbar .nav-links {
+        display: flex;
+        gap: 15px;
+        margin-right: 30px;
+    }
+
+    .navbar .nav-links a {
+        text-decoration: none;
+        padding: 6px 10px;
+        background-color: rgb(230, 182, 206);
+        color: white;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .navbar .nav-links a:hover {
+        background-color: rgb(130, 242, 227);
+    }
+
+    .container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px; /* Compact padding */
+        width: 90%;
+        max-width: 500px;
+        height: auto;
+        box-sizing: border-box;
+        margin-top: 80px; /* Space for the fixed navbar */
+    }
+
+    h1 {
+        color: rgb(230, 160, 192);
+        text-align: center;
+        margin-bottom: 8px; /* Slightly reduced margin */
+    }
+
+    form label {
+        font-weight: bold;
+        display: block;
+        color: #555;
+        margin-bottom: 2px; /* Reduced gap between label and input */
+    }
+
+    form input, form select, form textarea {
+        width: 100%;
+        padding: 6px;
+        margin: 0 0 8px; /* Reduced bottom margin to tighten spacing */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    form textarea {
+        resize: none; /* Prevent resizing */
+    }
+
+    form button {
+        background-color: rgb(230, 160, 192);
+        color: white;
+        border: none;
+        padding: 8px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    form button:hover {
+        background-color: rgb(130, 242, 227);
+    }
+
+    p {
+        text-align: center;
+        margin-bottom: 8px; /* Slightly reduced margin */
+    }
+</style>
+
+
 </head>
 <body>
+
+<div class="navbar">
+    <span class="exchidea">EXCHIDEA</span>
+    
+    <div class="nav-links">
+        <a href="profile.php">Profile</a>
+        <a href="home.php">Home</a>          
+    </div>
+</div>
 
 <div class="container">
     <h1>Edit Your Profile</h1>
@@ -75,11 +199,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
         <button type="submit" name="update_profile" class="btn">Update Profile</button>
     </form>
 
-    <div class="navigation">
-        <a href="profile.php" class="btn">Back to Profile</a>
-        <a href="home.php" class="btn">Home</a>
-        <a href="logout.php" class="btn">Logout</a>
-    </div>
 </div>
 
 </body>

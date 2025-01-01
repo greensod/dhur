@@ -93,6 +93,9 @@ if (!empty($user_interests)) {
             font-weight: bold;
             font-size: 14px;
         }
+        .navbar .nav-links a:hover {
+            background-color: rgb(130, 242, 227);
+        }
 
         /* Navbar search bar */
         .navbar .search-bar {
@@ -115,20 +118,23 @@ if (!empty($user_interests)) {
         .navbar .search-bar input {
             width: 200px;
         }
+        .navbar .search-bar button:hover {
+            background-color: rgb(130, 242, 227);
+        }
         .centered-heading {
-    text-align: center; /* Centers the text horizontally */
-    margin: 0; /* Remove any default margins */
-    padding-bottom: 5px; /* Add some padding below the heading to control the space */
-    margin-top: 100px; /* Add some margin at the top */
-}
+            text-align: center; /* Centers the text horizontally */
+            margin: 0; /* Remove any default margins */
+            padding-bottom: 5px; /* Add some padding below the heading to control the space */
+            margin-top: 100px; /* Add some margin at the top */
+        }
 
-.matches-table {
-    width: 40%;
-    border-collapse: collapse;
-    margin: 0 auto; /* Center the table horizontally */
-    font-size: 18px;
-    background-color: rgba(249, 234, 240, 0.9);
-}
+        .matches-table {
+            width: 40%;
+            border-collapse: collapse;
+            margin: 0 auto; /* Center the table horizontally */
+            font-size: 18px;
+            background-color: rgba(249, 234, 240, 0.9);
+        }
 
         .matches-table a {
             text-decoration: none; /* Removes the underline */
