@@ -66,7 +66,7 @@ while ($row = mysqli_fetch_assoc($result_skills)) {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f9;
+        background-color:rgb(237, 207, 222);
     }
     .container {
         max-width: 600px;
@@ -112,7 +112,7 @@ while ($row = mysqli_fetch_assoc($result_skills)) {
         margin-top: 20px;
     }
     button {
-        background-color: #007bff;
+        background-color:rgb(240, 164, 201);
         color: #fff;
         border: none;
         padding: 10px 20px;
@@ -121,19 +121,19 @@ while ($row = mysqli_fetch_assoc($result_skills)) {
         cursor: pointer;
     }
     button:hover {
-        background-color: #0056b3;
+        background-color:rgb(156, 167, 177);
     }
     .back-link {
         display: inline-block;
         margin-top: 20px;
         padding: 10px 20px;
-        background-color: #6c757d;
+        background-color:rgb(240, 164, 201);
         color: #fff;
         text-decoration: none;
         border-radius: 5px;
     }
     .back-link:hover {
-        background-color: #495057;
+        background-color:rgb(156, 167, 177);
     }
     .message {
         font-size: 16px;

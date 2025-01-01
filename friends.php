@@ -78,7 +78,7 @@ $friends = getFriendsList($current_user_id);
             font-size: 14px;
         }
         .navbar .nav-links a:hover {
-            background-color: rgb(130, 242, 227);
+            background-color: rgb(156, 167, 177);
         }
     </style>
 </head>

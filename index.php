@@ -49,7 +49,7 @@
         }
 
         .btn:hover {
-            background-color: rgb(130, 242, 227);
+            background-color: rgb(156, 167, 177);
         }
 
         

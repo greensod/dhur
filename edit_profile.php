@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     }
 
     .navbar .nav-links a:hover {
-        background-color: rgb(130, 242, 227);
+        background-color: rgb(156, 167, 177);
     }
 
     .container {
@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     }
 
     form button:hover {
-        background-color: rgb(130, 242, 227);
+        background-color: rgb(156, 167, 177);
     }
 
     p {
