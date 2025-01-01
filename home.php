@@ -59,7 +59,6 @@ if (!empty($user_interests)) {
             overflow-x: hidden; /* Prevent horizontal scrolling */
         }
 
-        /* Navbar */
         .navbar {
             width: 100%;
             background-color: rgba(249, 234, 240, 0.9);
@@ -70,7 +69,6 @@ if (!empty($user_interests)) {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Left part of the navbar (logo) */
         .navbar .exchidea {
             font-size: 24px;
             font-weight: bold;

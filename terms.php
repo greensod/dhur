@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('images/background.jpg'); 
+            background-image: url('images/background.png'); 
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -41,7 +41,7 @@
             display: inline-block;
             margin-top: 20px;
             padding: 10px 20px;
-            background-color: rgb(150, 225, 218);
+            background-color: rgb(234, 172, 211);
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -49,7 +49,7 @@
         }
 
         .back-link:hover {
-            background-color: rgb(234, 172, 211);
+            background-color: rgb(156, 167, 177);
         }
 
        
