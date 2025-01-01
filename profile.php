@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
         }
         .file-label:hover {
-            background-color: rgb(128, 222, 217);
+            background-color: rgb(156, 167, 177);
         }
         .btn{
             padding: 10px 20px;
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             cursor: pointer;
         }
         .btn:hover {
-            background-color: rgb(130, 242, 227);
+            background-color: rgb(156, 167, 177);
         }
         .user-details {
             margin: 20px;
@@ -153,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-size: 14px;
         }
         .navbar .nav-links a:hover {
-            background-color: rgb(130, 242, 227);
+            background-color: rgb(156, 167, 177);
         }
         .user-skills table {
             width: 80%; 

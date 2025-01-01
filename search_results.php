@@ -92,6 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-weight: bold;
             font-size: 14px;
         }
+        .navbar .nav-links a:hover {
+            background-color: rgb(156, 167, 177);
+        }
         .matches-table {
             width: 80%;
             border-collapse: collapse;
@@ -125,6 +128,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 14px;
             border: none;
         }
+        .view-btn {
+            display: inline-block;
+            padding: 4px 8px; 
+            background-color:  rgb(230, 182, 206); 
+            color: white !important;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px; 
+            text-align: center;
+        }
+
+        .view-btn:hover {
+            background-color:  rgb(156, 167, 177);
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -150,41 +170,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <!-- <h1>Search Results</h1> -->
-    <?php if (isset($matches) && !empty($matches)): ?>
-        <table class="matches-table">
-            <thead>
-                <tr class="heading">
-                    <th>Name</th>
+<?php if (isset($matches) && !empty($matches)): ?>
+    <table class="matches-table">
+        <thead>
+            <tr class="heading">
+                <th>Name</th>
+                <?php if ($search_type === 'skill'): ?>
+                    <th>Skill</th>
+                    <th>Level</th>
+                    <th>Available Duration</th>
+                <?php elseif ($search_type === 'interest'): ?>
+                    <th>Matching Interests</th>
+                <?php endif; ?>
+                <th>Profile</th> <!-- Changed to "Actions" -->
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($matches as $match): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($match['fname']); ?></td> <!-- Plain name without the link -->
                     <?php if ($search_type === 'skill'): ?>
-                        <th>Skill</th>
-                        <th>Level</th>
-                        <th>Available Duration</th>
+                        <td><?php echo htmlspecialchars($match['skill_name']); ?></td>
+                        <td><?php echo htmlspecialchars($match['level']); ?></td>
+                        <td><?php echo htmlspecialchars($match['duration']); ?></td>
                     <?php elseif ($search_type === 'interest'): ?>
-                        <th>Matching Interests</th>
+                        <td><?php echo htmlspecialchars($match['interests']); ?></td>
                     <?php endif; ?>
+                    <!-- View User button -->
+                    <td>
+                        <a href="view_user.php?user_id=<?php echo $match['user_id']; ?>" class="view-btn">View User</a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($matches as $match): ?>
-                    <tr>
-                        <td>
-                            <a href="view_user.php?user_id=<?php echo $match['user_id']; ?>">
-                                <?php echo htmlspecialchars($match['fname']); ?>
-                            </a>
-                        </td>
-                        <?php if ($search_type === 'skill'): ?>
-                            <td><?php echo htmlspecialchars($match['skill_name']); ?></td>
-                            <td><?php echo htmlspecialchars($match['level']); ?></td>
-                            <td><?php echo htmlspecialchars($match['duration']); ?></td>
-                        <?php elseif ($search_type === 'interest'): ?>
-                            <td><?php echo htmlspecialchars($match['interests']); ?></td>
-                        <?php endif; ?>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p><?php echo htmlspecialchars($message); ?></p>
-    <?php endif; ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p><?php echo htmlspecialchars($message); ?></p>
+<?php endif; ?>
+
 </body>
 </html>

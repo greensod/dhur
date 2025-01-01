@@ -94,7 +94,7 @@ if (!empty($user_interests)) {
             font-size: 14px;
         }
         .navbar .nav-links a:hover {
-            background-color: rgb(130, 242, 227);
+            background-color: rgb(156, 167, 177);
         }
 
         /* Navbar search bar */
@@ -119,7 +119,7 @@ if (!empty($user_interests)) {
             width: 200px;
         }
         .navbar .search-bar button:hover {
-            background-color: rgb(130, 242, 227);
+            background-color:rgb(156, 167, 177);
         }
         .centered-heading {
             text-align: center; /* Centers the text horizontally */

@@ -182,9 +182,20 @@ body
 }
 .container .form .input_field .btn:hover
 {
-    background: rgba(165, 225, 223, 0.9);
+    background:rgb(156, 167, 177);
 }
-
+.container .form .inputfield .btn:hover
+{
+    background:rgb(156, 167, 177);
+}
+.container .backf .btn:hover
+{
+    background:rgb(156, 167, 177);
+}
+.container .back .btn:hover
+{
+    background:rgb(156, 167, 177);
+}
 .container .back .btn{
     background-color:rgb(230, 158, 195);
     border: none;

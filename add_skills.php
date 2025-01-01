@@ -100,7 +100,7 @@ if (isset($_GET['remove_skill_id'])) {
             cursor: pointer;
         }
         .form-container button:hover {
-            background-color: rgb(130, 242, 227);
+            background-color:rgb(156, 167, 177);
         }
         .message {
             text-align: center;
@@ -143,7 +143,7 @@ if (isset($_GET['remove_skill_id'])) {
             border-radius: 5px;
         }
         .back-to-profile:hover {
-            background-color: rgb(130, 242, 227);
+            background-color: rgb(156, 167, 177);
         }
     </style>
 </head>
