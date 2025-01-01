@@ -80,6 +80,10 @@ $friends = getFriendsList($current_user_id);
                     <input type="hidden" name="friend_id" value="<?php echo $friend['user_id']; ?>">
                     <button type="submit" name="action" value="unfriend">Unfriend</button>
                 </form>
+                <form method="GET" action="view_user.php" style="display:inline;">
+                        <input type="hidden" name="user_id" value="<?php echo $friend['user_id']; ?>">
+                        <button type="submit">View User</button>
+                </form>
             </li>
         <?php endwhile; ?>
     </ul>
