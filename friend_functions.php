@@ -26,8 +26,16 @@ function acceptFriendRequest($request_id) {
 // Reject or delete a friend request
 function rejectFriendRequest($request_id) {
     global $conn;
-    $query = "UPDATE friend_requests SET status = 'rejected' WHERE request_id = '$request_id'";
+    $query = "DELETE FROM friend_requests WHERE request_id = '$request_id'";
     return mysqli_query($conn, $query);
+}
+
+// Check if a friend request already exists between two users
+function doesFriendRequestExist($user1_id, $user2_id) {
+    global $conn;
+    $query = "SELECT * FROM friend_requests WHERE (sender_id = '$user1_id' AND receiver_id = '$user2_id') OR (sender_id = '$user2_id' AND receiver_id = '$user1_id')";
+    $result = mysqli_query($conn, $query);
+    return mysqli_num_rows($result) > 0;
 }
 
 // Get pending friend requests
