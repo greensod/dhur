@@ -33,12 +33,18 @@ function rejectFriendRequest($request_id) {
 // Get pending friend requests
 function getPendingFriendRequests($user_id) {
     global $conn;
-    $query = "SELECT f.request_id, f.sender_id, u.fname, u.email 
-        FROM friend_requests f
-        JOIN user u ON f.sender_id = u.user_id
-        WHERE f.receiver_id = $user_id AND f.status = 'pending'";
+    $query = "SELECT * FROM friend_requests WHERE receiver_id = '$user_id' AND status = 'pending'";
     return mysqli_query($conn, $query);
 }
+
+// Unfriend a user
+function unfriendUser($user1_id, $user2_id) {
+    global $conn;
+    $query = "DELETE FROM friends WHERE (user1_id = '$user1_id' AND user2_id = '$user2_id') OR (user1_id = '$user2_id' AND user2_id = '$user1_id')";
+    mysqli_query($conn, $query);
+    return mysqli_query($conn, $query);
+}
+
 
 // Get the friend list
 function getFriendsList($user_id) {
