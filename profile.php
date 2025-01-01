@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     } elseif (isset($_POST['remove_picture'])) {
+        // Remove profile picture
         $update_query = "UPDATE user SET profile_picture = NULL WHERE email = '$user_email'";
         if (mysqli_query($conn, $update_query)) {
             if ($user['profile_picture']) {
@@ -98,7 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             cursor: pointer;
             display: inline-block;
             margin-bottom: 0px;
-            
         }
         .file-label:hover {
             background-color: rgb(156, 167, 177);
@@ -177,7 +177,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .user-skills td {
             background-color: white; 
         }
-
     </style>
     <script>
         function previewImage(event) {
@@ -199,40 +198,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
 
-        
-        
-    <div class="profile-picture">
-        <?php if ($user['profile_picture']): ?>
-        
-            <img src="uploads/profile_pictures/<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture">
-            <form action="profile.php" method="POST" class="profile-form">
-                <button type="button" class="btn" 
-                    onclick="if (confirm('Are you sure you want to remove the picture?')) { this.form.submit(); }">
-                    Remove Picture
-                </button>
+        <div class="profile-picture">
+            <?php if ($user['profile_picture']): ?>
+                <img src="uploads/profile_pictures/<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture">
+                <!-- Remove picture form -->
+                <form action="profile.php" method="POST" class="profile-form">
+                    <input type="hidden" name="remove_picture" value="1">
+                    <button type="submit" class="btn" onclick="return confirm('Are you sure you want to remove the picture?');">
+                        Remove Picture
+                    </button>
+                </form>
+            <?php else: ?>
+                <img src="images/default_profile_picture.jpg" alt="Default Profile Picture">
+            <?php endif; ?>
+
+            <!-- Upload picture form -->
+            <form action="profile.php" method="POST" enctype="multipart/form-data">
+                <?php if (!$user['profile_picture']): ?>
+                    <label for="profile_picture" class="file-label">Select Picture</label>
+                    <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(event)" style="display:none;">
+                    <br><br>
+                    <img id="profilePicturePreview" style="display:none; width:150px; height:150px; border-radius:50%; margin-top: 10px;" alt="Profile Picture Preview">
+                    <br><br>
+                    <button type="submit" class="btn">Upload Picture</button>
+                <?php endif; ?>
             </form>
+        </div>
 
-        <?php else: ?>
-            <img src="images/default_profile_picture.jpg" alt="Default Profile Picture">
-        <?php endif; ?>
-
-    
-        <form action="profile.php" method="POST" enctype="multipart/form-data">
-        <!-- Show the Select Picture button if no picture is uploaded -->
-        <?php if (!$user['profile_picture']): ?>
-            <label for="profile_picture" class="file-label">Select Picture</label>
-            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(event)" style="display:none;">
-            <br><br>
-            <img id="profilePicturePreview" style="display:none; width:150px; height:150px; border-radius:50%; margin-top: 10px;" alt="Profile Picture Preview">
-            <br><br>
-            <button type="submit" class="btn">Upload Picture</button>
-        <?php endif; ?>
-        </form>
-
-    </div>
-
-
-        
         <div class="user-details">
             <h2>Your Profile Information:</h2>
             <p><strong>Name:</strong> <?php echo htmlspecialchars($user['fname']); ?></p>
