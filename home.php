@@ -49,6 +49,7 @@ if (!empty($user_interests)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="css/notifications.css">
     <style>
         /* Prevent horizontal scrolling */
         body {
@@ -174,6 +175,30 @@ if (!empty($user_interests)) {
             <a href="logout.php">Logout</a>
         </div>
     </div>
+    
+
+    <div class="notification-icon">
+        <img src="notification_icon.png" alt="Notifications" id="notificationIcon">
+        <span class="badge" id="notificationCount"><?php echo $notification_count; ?></span>
+        <div id="notificationDropdown" class="dropdown">
+            <?php if (mysqli_num_rows($notifications) > 0): ?>
+                <ul>
+                    <?php while ($notification = mysqli_fetch_assoc($notifications)): ?>
+                        <li>
+                            You have received a friend request from User ID: <?php echo htmlspecialchars($notification['sender_id']); ?>
+                            <form method="POST" action="friends.php">
+                                <input type="hidden" name="request_id" value="<?php echo $notification['request_id']; ?>">
+                                <button type="submit" name="action" value="accept">Accept</button>
+                                <button type="submit" name="action" value="reject">Reject</button>
+                            </form>
+                        </li>
+                    <?php endwhile; ?>
+                </ul>
+            <?php else: ?>
+                <p>No new notifications.</p>
+            <?php endif; ?>
+        </div>
+    </div>
 
     <h1>Welcome to Exchidea, <?php echo htmlspecialchars($user_name); ?>!</h1>
     <p>Your interests are: <strong><?php echo htmlspecialchars(implode(', ', $user_interests)); ?></strong></p>
@@ -207,6 +232,9 @@ if (!empty($user_interests)) {
     <?php else: ?>
         <p><?php echo htmlspecialchars($message); ?></p>
     <?php endif; ?>
+
+    <script src="js/notifications.js"></script>
+
 
 </body>
 </html>

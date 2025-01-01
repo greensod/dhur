@@ -1,0 +1,52 @@
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.notification-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+.badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 3px 7px;
+    font-size: 12px;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown li:last-child {
+    border-bottom: none;
+}
+
+.dropdown form {
+    display: inline;
+    margin: 0;
+}
