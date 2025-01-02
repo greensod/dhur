@@ -37,7 +37,7 @@ $stmt->close();
 
         .navbar {
             width: 100%;
-            background-color: rgba(249, 234, 240, 0.9);
+            background-color: rgba(237, 215, 217, 0.9);
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
@@ -48,7 +48,7 @@ $stmt->close();
         .navbar .exchidea {
             font-size: 24px;
             font-weight: bold;
-            color: rgb(230, 160, 192);
+            color: rgb(161, 96, 97);
         }
 
         /* Right part of the navbar (buttons) */
@@ -61,14 +61,14 @@ $stmt->close();
         .navbar .nav-links a {
             text-decoration: none;
             padding: 6px 10px;
-            background-color: rgb(230, 182, 206);
+            background-color: rgb(161, 96, 97);
             color: white;
             border-radius: 5px;
             font-weight: bold;
             font-size: 14px;
         }
         .navbar .nav-links a:hover {
-            background-color: rgb(156, 167, 177);
+            background-color: rgb(232, 154, 159);
         }
 
         /* Navbar search bar */
@@ -144,11 +144,11 @@ $stmt->close();
 </head>
 <body>
     <div class="navbar">
-        <div class="exchidea">Admin Dashboard</div>
+        <div class="exchidea">EXCHIDEA</div>
         <div class="nav-links">
             <a href="manage_users.php">Manage Users</a>
             <a href="view_reports.php">View Reports</a>
-            <a href="admin_settings.php">Settings</a>
+            <a href="logout.php">Logout</a>
         </div>
     </div>
 
@@ -157,22 +157,6 @@ $stmt->close();
         <p>Hello, Admin! Your email: <?php echo htmlspecialchars($admin_email); ?></p>
     </div>
 
-    <!-- Example Dashboard Links -->
-    <div>
-        <h2>Admin Dashboard</h2>
-        <ul>
-            <li><a href="manage_users.php">Manage Users</a></li>
-            <li><a href="view_reports.php">View Reports</a></li>
-            <li><a href="admin_settings.php">Admin Settings</a></li>
-        </ul>
-    </div>
-
-    <div>
-        <h3>Logout</h3>
-        <a href="logout.php">
-            <button class="search-bar">Logout</button>
-        </a>
-    </div>
+   
 </body>
 </html>
-
