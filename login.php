@@ -27,11 +27,15 @@
                 </div>
             </div>
         </form>
-       
+
         <p>Don't have an account? <a href="form.php">Register here</a>.</p>
         <div class="back">
             <input type="button" value="Go Back" class="btn" onclick="window.location.href='index.php'">
         </div>
+        <!-- Add a button for admin login -->
+<a href="admin_login.php">
+    <input type="button" value="Admin Login" class="btn">
+</a>
 
     </div>
 </body>
