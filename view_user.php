@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 include 'connection.php';
 
@@ -242,4 +242,4 @@ button:hover {
         <a href="home.php" class="back-link">Back to Home</a>
     </div>
 </body>
-</html>
+</html>+
