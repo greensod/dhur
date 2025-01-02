@@ -55,7 +55,15 @@ $friends = getFriendsList($current_user_id);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Friends</title>
     <style>
-        /* Original CSS */
+        /* Prevent horizontal scrolling */
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            box-sizing: border-box;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
         .navbar {
             width: 100%;
             background-color: rgba(249, 234, 240, 0.9);
@@ -166,6 +174,57 @@ $friends = getFriendsList($current_user_id);
         .chat-message.receiver {
             background-color: #f1f1f1;
         }
+
+        /* Centered Heading */
+        .centered-heading {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        /* List styling */
+        .request-list, .friends-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .request-list li, .friends-list li {
+            background-color: rgba(249, 234, 240, 0.9);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .request-list a, .friends-list a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .request-list button, .friends-list button {
+            background-color: rgb(230, 182, 206);
+            color: white;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-weight: bold;
+        }
+
+        .request-list button:hover, .friends-list button:hover {
+            background-color: rgb(156, 167, 177);
+        }
+
+        .friends-list li a {
+            padding: 6px 10px;
+            background-color: rgb(230, 182, 206);
+            color: white;
+            border-radius: 5px;
+        }
+
+        .friends-list li a:hover {
+            background-color: rgb(156, 167, 177);
+        }
     </style>
 </head>
 <body>
@@ -173,14 +232,14 @@ $friends = getFriendsList($current_user_id);
 <div class="navbar">
     <span class="exchidea">EXCHIDEA</span>
     <div class="nav-links">
-        <a href="profile.php">Profile</a>
         <a href="home.php">Home</a>
+        <a href="profile.php">Profile</a>
     </div>
 </div>
 
-<h1>Friend Requests</h1>
+<h1 class="centered-heading">Friend Requests</h1>
 <?php if (mysqli_num_rows($pending_requests) > 0): ?>
-    <ul>
+    <ul class="request-list">
         <?php while ($request = mysqli_fetch_assoc($pending_requests)): ?>
             <li>
                 Friend Request from: 
@@ -199,20 +258,20 @@ $friends = getFriendsList($current_user_id);
     <p>No pending friend requests.</p>
 <?php endif; ?>
 
-<h1>Your Friends</h1>
+<h1 class="centered-heading">Your Friends</h1>
 <?php if (mysqli_num_rows($friends) > 0): ?>
-    <ul>
+    <ul class="friends-list">
         <?php while ($friend = mysqli_fetch_assoc($friends)): ?>
             <li>
                 <?php echo htmlspecialchars($friend['fname']); ?> (<?php echo htmlspecialchars($friend['email']); ?>)
                 <a href="view_user.php?user_id=<?php echo $friend['user_id']; ?>">
-                    <button type="button">View Profile</button>
+                    View Profile
                 </a>
                 <form method="POST" style="display: inline;">
                     <input type="hidden" name="friend_id" value="<?php echo $friend['user_id']; ?>">
                     <button type="submit" name="action" value="unfriend">Unfriend</button>
                     <button type="submit" name="action" value="rate">Rate</button>
-                    <button type="submit" name="action" value="report">Report</button> <!-- Report button -->
+                    <button type="submit" name="action" value="report">Report</button>
                     <button type="button" onclick="openChatModal(<?php echo $friend['user_id']; ?>)">Chat</button>
                 </form>
             </li>
@@ -227,9 +286,7 @@ $friends = getFriendsList($current_user_id);
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Chat</h2>
-        <div id="chatBox" class="chat-box">
-            <!-- Messages will be displayed here -->
-        </div>
+        <div id="chatBox" class="chat-box"></div>
         <textarea id="chatMessage" rows="4" cols="50" placeholder="Type a message..."></textarea><br><br>
         <button type="button" onclick="sendMessage()">Send</button>
     </div>
@@ -243,19 +300,17 @@ $friends = getFriendsList($current_user_id);
 
     function openChatModal(friend_id) {
         chatReceiverId = friend_id;
-        // Fetch chat history for this friend
         fetchChatMessages(friend_id);
         chatModal.style.display = "block";
     }
 
     function fetchChatMessages(friend_id) {
-        // AJAX request to fetch chat messages
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "fetch_chat.php?friend_id=" + friend_id, true);
         xhr.onload = function() {
             if (xhr.status === 200) {
                 var messages = JSON.parse(xhr.responseText);
-                chatBox.innerHTML = ''; // Clear the chatbox
+                chatBox.innerHTML = '';
                 messages.forEach(function(msg) {
                     var messageDiv = document.createElement('div');
                     messageDiv.classList.add('chat-message');
@@ -274,15 +329,15 @@ $friends = getFriendsList($current_user_id);
 
     function sendMessage() {
         var message = chatMessageInput.value;
-        if (message.trim() === "") return; // Don't send empty messages
+        if (message.trim() === "") return;
 
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "send_chat.php", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onload = function() {
             if (xhr.status === 200) {
-                chatMessageInput.value = ''; // Clear the message input
-                fetchChatMessages(chatReceiverId); // Reload the chat after sending the message
+                chatMessageInput.value = '';
+                fetchChatMessages(chatReceiverId);
             }
         };
         xhr.send("receiver_id=" + chatReceiverId + "&message=" + encodeURIComponent(message));
@@ -291,12 +346,6 @@ $friends = getFriendsList($current_user_id);
     var span = document.getElementsByClassName("close")[0];
     span.onclick = function() {
         chatModal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == chatModal) {
-            chatModal.style.display = "none";
-        }
     }
 </script>
 
