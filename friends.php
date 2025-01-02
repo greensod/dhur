@@ -32,6 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } elseif ($action === 'rate' && isset($_POST['friend_id'])) {
             header("Location: rate_user.php?friend_id=" . $_POST['friend_id']);
             exit;
+        } elseif ($action === 'report' && isset($_POST['friend_id'])) { // Report action handling
+            $reported_user_id = $_POST['friend_id'];
+            // Redirect to the report page
+            header("Location: report_user.php?friend_id=" . $reported_user_id);
+            exit;
         }
     }
 }
@@ -50,6 +55,7 @@ $friends = getFriendsList($current_user_id);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Friends</title>
     <style>
+        /* Original CSS */
         .navbar {
             width: 100%;
             background-color: rgba(249, 234, 240, 0.9);
@@ -137,6 +143,29 @@ $friends = getFriendsList($current_user_id);
         button:hover {
             background-color: rgb(156, 167, 177);
         }
+
+        /* Chatbox styles */
+        .chat-box {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .chat-message {
+            padding: 5px;
+        }
+
+        .chat-message.sender {
+            background-color: #e0e0e0;
+        }
+
+        .chat-message.receiver {
+            background-color: #f1f1f1;
+        }
     </style>
 </head>
 <body>
@@ -183,6 +212,8 @@ $friends = getFriendsList($current_user_id);
                     <input type="hidden" name="friend_id" value="<?php echo $friend['user_id']; ?>">
                     <button type="submit" name="action" value="unfriend">Unfriend</button>
                     <button type="submit" name="action" value="rate">Rate</button>
+                    <button type="submit" name="action" value="report">Report</button> <!-- Report button -->
+                    <button type="button" onclick="openChatModal(<?php echo $friend['user_id']; ?>)">Chat</button>
                 </form>
             </li>
         <?php endwhile; ?>
@@ -191,46 +222,80 @@ $friends = getFriendsList($current_user_id);
     <p>You have no friends yet.</p>
 <?php endif; ?>
 
-<!-- Rating Modal -->
-<div id="rateModal" class="modal">
+<!-- Chat Modal -->
+<div id="chatModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h2>Rate Friend</h2>
-        <form id="rateForm" method="POST" action="rate_user.php">
-            <input type="hidden" name="friend_id" id="friend_id">
-            <label for="rating">Rating (1-5):</label>
-            <select name="rating" id="rating" required>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select><br><br>
-
-            <label for="review">Review (Optional):</label><br>
-            <textarea name="review" id="review" rows="4" cols="50"></textarea><br><br>
-
-            <button type="submit">Submit Rating</button>
-        </form>
+        <h2>Chat</h2>
+        <div id="chatBox" class="chat-box">
+            <!-- Messages will be displayed here -->
+        </div>
+        <textarea id="chatMessage" rows="4" cols="50" placeholder="Type a message..."></textarea><br><br>
+        <button type="button" onclick="sendMessage()">Send</button>
     </div>
 </div>
 
 <script>
-    var modal = document.getElementById("rateModal");
-    var span = document.getElementsByClassName("close")[0];
+    var chatModal = document.getElementById("chatModal");
+    var chatBox = document.getElementById("chatBox");
+    var chatMessageInput = document.getElementById("chatMessage");
+    var chatReceiverId = null;
 
-    function openRateModal(friend_id) {
-        document.getElementById("friend_id").value = friend_id;
-        modal.style.display = "block";
+    function openChatModal(friend_id) {
+        chatReceiverId = friend_id;
+        // Fetch chat history for this friend
+        fetchChatMessages(friend_id);
+        chatModal.style.display = "block";
     }
 
+    function fetchChatMessages(friend_id) {
+        // AJAX request to fetch chat messages
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "fetch_chat.php?friend_id=" + friend_id, true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var messages = JSON.parse(xhr.responseText);
+                chatBox.innerHTML = ''; // Clear the chatbox
+                messages.forEach(function(msg) {
+                    var messageDiv = document.createElement('div');
+                    messageDiv.classList.add('chat-message');
+                    if (msg.sender_id == <?php echo $current_user_id; ?>) {
+                        messageDiv.classList.add('sender');
+                    } else {
+                        messageDiv.classList.add('receiver');
+                    }
+                    messageDiv.innerHTML = "<strong>" + msg.sender_name + ":</strong> " + msg.message;
+                    chatBox.appendChild(messageDiv);
+                });
+            }
+        };
+        xhr.send();
+    }
+
+    function sendMessage() {
+        var message = chatMessageInput.value;
+        if (message.trim() === "") return; // Don't send empty messages
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "send_chat.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                chatMessageInput.value = ''; // Clear the message input
+                fetchChatMessages(chatReceiverId); // Reload the chat after sending the message
+            }
+        };
+        xhr.send("receiver_id=" + chatReceiverId + "&message=" + encodeURIComponent(message));
+    }
+
+    var span = document.getElementsByClassName("close")[0];
     span.onclick = function() {
-        modal.style.display = "none";
+        chatModal.style.display = "none";
     }
 
     window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+        if (event.target == chatModal) {
+            chatModal.style.display = "none";
         }
     }
 </script>
