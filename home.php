@@ -103,7 +103,7 @@ if (!empty($user_interests)) {
             text-decoration: none;
             padding: 6px 10px;
             background-color: rgb(230, 182, 206);
-            color: white;
+            color: rgb(161, 96, 97);
             border-radius: 5px;
             font-weight: bold;
             font-size: 14px;
@@ -127,10 +127,14 @@ if (!empty($user_interests)) {
         .navbar .search-bar button {
             padding: 5px;
             font-size: 14px;
-        }
+            color: rgb(161, 96, 97);
+            font-weight: bold;
 
+        }
+        
         .navbar .search-bar input {
             width: 200px;
+            font-weight: bold;
         }
 
         .navbar .search-bar button:hover {
@@ -216,7 +220,6 @@ if (!empty($user_interests)) {
             </form>
         </div>
         <div class="nav-links">
-            <a href="home.php">Home</a>
             <a href="profile.php">Profile</a>
             <a href="friends.php" class="friends-button">
                 Friends
@@ -231,7 +234,7 @@ if (!empty($user_interests)) {
     <h1>Welcome to Exchidea, <?php echo htmlspecialchars($user_name); ?>!</h1>
     <p>Your interests are: <strong><?php echo htmlspecialchars(implode(', ', $user_interests)); ?></strong></p>
 
-    <h4 class="centered-heading">Matching Users Based on Skill:</h4>
+    <h4 class="centered-heading">Matching Users:</h4>
     <?php if (!empty($matches)): ?>
         <table class="matches-table">
             <thead>

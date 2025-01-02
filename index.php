@@ -33,15 +33,15 @@
         .navbar .exchidea {
             font-size: 20px;
             font-weight: bold;
-            color: rgb(230, 160, 192);
+            color:rgb(161, 96, 97);
         }
 
         .btn {
             display: inline-block;
             padding: 8px 15px;
             margin: 5px;
-            background-color: rgb(230, 182, 206);
-            color: white;
+            background-color: rgb(234, 201, 218);
+            color: rgb(161, 96, 97);
             text-decoration: none;
             border-radius: 5px;
             font-size: 14px;
@@ -70,21 +70,21 @@
             max-width: 600px; /* Optional, for readability */
             margin: auto;
             margin-top: 140px;
-            color: white;
+            color:rgb(161, 96, 97);
         }
 
         .terms {
             text-align: center;
             padding: 10px;
             background-color: rgba(175, 151, 151, 0.6);
-            color: white;
+            color: rgb(161, 96, 97);
             position: absolute;
             bottom: 0;
             width: 100%;
         }
 
         .terms a {
-            color: white;
+            color:rgb(161, 96, 97);
             text-decoration: none;
         }
 
