@@ -10,6 +10,24 @@ if (!isset($_SESSION['user_email'])) {
 $user_email = $_SESSION['user_email'];
 $user_name = $_SESSION['user_name'];
 
+// Function to count pending friend requests
+function countPendingFriendRequests($user_id) {
+    global $conn;
+    $query = "SELECT COUNT(*) AS pending_count FROM friend_requests WHERE receiver_id = '$user_id' AND status = 'pending'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    return $row['pending_count'];
+}
+
+// Get the current user's ID
+$query = "SELECT user_id FROM user WHERE email = '$user_email'";
+$result = mysqli_query($conn, $query);
+$user = mysqli_fetch_assoc($result);
+$current_user_id = $user['user_id'];
+
+// Get the count of pending friend requests
+$pending_count = countPendingFriendRequests($current_user_id);
+
 // Get the logged-in user's interests
 $query = "SELECT interests FROM user WHERE email = '$user_email'";
 $result = mysqli_query($conn, $query);
@@ -56,7 +74,7 @@ if (!empty($user_interests)) {
             padding: 0;
             width: 100%;
             box-sizing: border-box;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            overflow-x: hidden;
         }
 
         .navbar {
@@ -75,7 +93,6 @@ if (!empty($user_interests)) {
             color: rgb(230, 160, 192);
         }
 
-        /* Right part of the navbar (buttons) */
         .navbar .nav-links {
             display: flex;
             gap: 15px;
@@ -91,21 +108,20 @@ if (!empty($user_interests)) {
             font-weight: bold;
             font-size: 14px;
         }
+
         .navbar .nav-links a:hover {
             background-color: rgb(156, 167, 177);
         }
 
-        /* Navbar search bar */
         .navbar .search-bar {
             display: flex;
             gap: 5px;
             align-items: center;
-            flex-grow: 1; /* Allow the search bar to grow and center */
-            max-width: 400px; /* Max width for search bar */
-            margin: 0 auto; /* Center the search bar */
+            flex-grow: 1;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
-        /* Form elements in the search bar */
         .navbar .search-bar select,
         .navbar .search-bar input,
         .navbar .search-bar button {
@@ -116,29 +132,30 @@ if (!empty($user_interests)) {
         .navbar .search-bar input {
             width: 200px;
         }
+
         .navbar .search-bar button:hover {
-            background-color:rgb(156, 167, 177);
+            background-color: rgb(156, 167, 177);
         }
+
         .centered-heading {
-            text-align: center; /* Centers the text horizontally */
-            margin: 0; /* Remove any default margins */
-            padding-bottom: 5px; /* Add some padding below the heading to control the space */
-            margin-top: 100px; /* Add some margin at the top */
+            text-align: center;
+            margin: 0;
+            padding-bottom: 5px;
+            margin-top: 100px;
         }
 
         .matches-table {
             width: 40%;
             border-collapse: collapse;
-            margin: 0 auto; /* Center the table horizontally */
+            margin: 0 auto;
             font-size: 18px;
             background-color: rgba(249, 234, 240, 0.9);
         }
 
         .matches-table a {
-            text-decoration: none; /* Removes the underline */
+            text-decoration: none;
             color: black;
         }
-  
 
         .matches-table th, .matches-table td {
             border: 1px solid rgb(243, 189, 189);
@@ -149,8 +166,8 @@ if (!empty($user_interests)) {
         .matches-table th {
             background-color: #efc9c9;
         }
-        
-        .search-bar button{
+
+        .search-bar button {
             text-decoration: none;
             padding: 6px 10px;
             background-color: rgb(230, 182, 206);
@@ -160,13 +177,31 @@ if (!empty($user_interests)) {
             font-size: 14px;
             border: none;
         }
-        .matches-table .heading{
+
+        .matches-table .heading {
             color: white;
+        }
+
+        /* Notification dot for pending friend requests */
+        .friends-button {
+            position: relative;
+            display: inline-block;
+        }
+
+        .red-dot {
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(50%, -50%);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
-
     <div class="navbar">
         <span class="exchidea">EXCHIDEA</span>
         <div class="search-bar">
@@ -181,9 +216,14 @@ if (!empty($user_interests)) {
             </form>
         </div>
         <div class="nav-links">
+            <a href="home.php">Home</a>
             <a href="profile.php">Profile</a>
-            <a href="add_skills.php">Add Skills</a>
-            <a href="friends.php">Friends</a>
+            <a href="friends.php" class="friends-button">
+                Friends
+                <?php if ($pending_count > 0): ?>
+                    <span class="red-dot"></span>
+                <?php endif; ?>
+            </a>
             <a href="logout.php">Logout</a>
         </div>
     </div>
@@ -214,13 +254,11 @@ if (!empty($user_interests)) {
                         <td><?php echo htmlspecialchars($match['level']); ?></td>
                         <td><?php echo htmlspecialchars($match['duration']); ?></td>
                     </tr>
-
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
         <p><?php echo htmlspecialchars($message); ?></p>
     <?php endif; ?>
-
 </body>
 </html>

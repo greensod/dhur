@@ -61,4 +61,11 @@ function getFriendsList($user_id) {
     ";
     return mysqli_query($conn, $query);
 }
+function countPendingFriendRequests($user_id) {
+    global $conn;
+    $query = "SELECT COUNT(*) AS count FROM friend_requests WHERE receiver_id = '$user_id' AND status = 'pending'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    return $row['count'];
+}
 ?>
