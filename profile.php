@@ -106,9 +106,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .btn{
             padding: 10px 20px;
             background-color: rgb(230, 182, 206);
-            color: white;
+            color: rgb(161, 96, 97);
             border: none;
             cursor: pointer;
+            font-weight: bold
         }
         .btn:hover {
             background-color: rgb(156, 167, 177);
@@ -147,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             text-decoration: none;
             padding: 6px 10px;
             background-color: rgb(230, 182, 206);
-            color: white;
+            color:rgb(161, 96, 97);
             border-radius: 5px;
             font-weight: bold;
             font-size: 14px;
@@ -171,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .user-skills th {
             background-color: rgb(230, 182, 206); 
-            color: white;
+            color: rgb(161, 96, 97);
         }
 
         .user-skills td {

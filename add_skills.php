@@ -95,9 +95,10 @@ if (isset($_GET['remove_skill_id'])) {
         .form-container button {
             padding: 10px 20px;
             background-color: rgb(230, 182, 206);
-            color: white;
+            color: rgb(161, 96, 97);
             border: none;
             cursor: pointer;
+            font-weight: bold;
         }
         .form-container button:hover {
             background-color:rgb(156, 167, 177);
@@ -137,7 +138,7 @@ if (isset($_GET['remove_skill_id'])) {
             padding: 10px 20px;
             margin-bottom: 20px;
             background-color: rgb(230, 182, 206);
-            color: white;
+            color: rgb(161, 96, 97);
             text-decoration: none;
             font-weight: bold;
             border-radius: 5px;

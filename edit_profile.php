@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
         text-decoration: none;
         padding: 6px 10px;
         background-color: rgb(230, 182, 206);
-        color: white;
+        color:  rgb(161, 96, 97);
         border-radius: 5px;
         font-weight: bold;
         font-size: 14px;
@@ -134,13 +134,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
 
     form button {
         background-color: rgb(230, 160, 192);
-        color: white;
+        color:  rgb(161, 96, 97);
         border: none;
         padding: 8px 10px;
         border-radius: 5px;
         cursor: pointer;
         font-size: 16px;
         width: 100%;
+        font-weight: bold;
     }
 
     form button:hover {

@@ -60,86 +60,120 @@ $skills_result = $skills_stmt->get_result();
     <title>User Profile</title>
     <style>
         /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-        }
+        /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    overflow: hidden; /* Prevent scrolling */
+    height: 100vh; /* Make body take up full height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        h2 {
-            color: #333;
-            text-align: center;
-        }
-        h1{
-            color: #333;
-        }
-        .profile-container {
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .profile-header img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .skills-table table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        .skills-table th, .skills-table td {
-            border: 1px solid rgb(161, 96, 97);
-            padding: 12px;
-            text-align: center;
-        }
-        .skills-table th {
-            background-color:rgb(161, 96, 97);
-        }
-        .skills-table td {
-            background-color: rgb(246, 215, 215);
-        }
-        .email-button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color:rgb(161, 96, 97);
-            text-align: center;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .email-button:hover {
-            background-color:rgb(204, 139, 139);
-        }
-        .back-button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color:rgb(161, 96, 97);
-            text-align: center;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .back-button:hover {
-            background-color:rgb(204, 139, 139);
-        }
+html, body {
+    width: 100%;
+    overflow: hidden; /* Prevent horizontal scrolling */
+}
+
+h1, h2 {
+    color: #333;
+    text-align: center;
+    margin: 0;
+}
+
+/* Profile container */
+.profile-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow: hidden; /* Prevent scroll within container */
+    height: 100%;
+}
+
+.profile-header img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.skills-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed; /* Prevent overflow */
+}
+
+.skills-table th, .skills-table td {
+    border: 1px solid rgb(161, 96, 97);
+    padding: 12px;
+    text-align: center;
+}
+
+.skills-table th {
+    background-color: rgb(161, 96, 97);
+}
+
+.skills-table td {
+    background-color: rgb(246, 215, 215);
+}
+
+.email-button, .back-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: rgb(161, 96, 97);
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.email-button:hover, .back-button:hover {
+    background-color: rgb(204, 139, 139);
+}
+
+/* Make buttons responsive */
+.email-button, .back-button {
+    width: 80%; /* Ensure buttons are within the screen size */
+    max-width: 300px; /* Limit maximum width */
+}
+
+/* Prevent overflow in smaller screens */
+@media screen and (max-width: 768px) {
+    .profile-container {
+        padding: 15px; /* Reduce padding on smaller screens */
+    }
+
+    .skills-table td, .skills-table th {
+        padding: 8px; /* Adjust table padding for smaller screens */
+    }
+
+    .profile-header img {
+        width: 120px; /* Adjust image size */
+        height: 120px; /* Adjust image size */
+    }
+
+    h1, h2 {
+        font-size: 1.5em; /* Adjust font size */
+    }
+
+    .email-button, .back-button {
+        width: 90%; /* Make buttons take up more width on smaller screens */
+    }
+}
+
     </style>
 </head>
 <body>

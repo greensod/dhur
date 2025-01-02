@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-decoration: none;
             padding: 6px 10px;
             background-color: rgb(230, 182, 206);
-            color: white;
+            color: rgb(161, 96, 97);
             border-radius: 5px;
             font-weight: bold;
             font-size: 14px;
@@ -116,23 +116,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color:rgb(241, 192, 192);
         }
         .matches-table .heading {
-            color: white;
+            color: rgb(161, 96, 97);
         }
         .search-bar button{
             text-decoration: none;
             padding: 6px 10px;
             background-color: rgb(230, 182, 206);
-            color: white;
+            color: rgb(161, 96, 97);
             border-radius: 5px;
             font-weight: bold;
             font-size: 14px;
             border: none;
         }
+        .navbar .search-bar select,
+        .navbar .search-bar input,
+        .navbar .search-bar button {
+            padding: 5px;
+            font-size: 14px;
+            color: rgb(161, 96, 97);
+            font-weight: bold;
+
+        }
         .view-btn {
             display: inline-block;
             padding: 4px 8px; 
             background-color:  rgb(230, 182, 206); 
-            color: white !important;
+            color: rgb(161, 96, 97) !important;
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
