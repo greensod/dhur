@@ -1,4 +1,3 @@
-
 <?php
 include 'connection.php';
 session_start();
@@ -12,6 +11,12 @@ if (isset($_POST['login'])) {
 
     if (mysqli_num_rows($result) == 1) {
         $user = mysqli_fetch_assoc($result);
+
+        // Check if the user is banned
+        if ($user['is_banned'] == 1) {
+            echo "Your account is banned. Please contact support.";
+            exit;
+        }
 
         if (password_verify($password, $user['password'])) {
             $_SESSION['user_email'] = $user['email'];

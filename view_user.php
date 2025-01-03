@@ -31,9 +31,13 @@ if (!$result || mysqli_num_rows($result) === 0) {
 
 $profile_user = mysqli_fetch_assoc($result);
 
-// Check if a friend request has been sent
-$request_query = "SELECT * FROM friend_requests WHERE sender_id = $current_user_id AND receiver_id = $profile_user_id";
+// Check if a friend request has been sent by the current user to the profile user
+$request_query = "SELECT * FROM friend_requests WHERE sender_id = $current_user_id AND receiver_id = $profile_user_id AND status = 'pending'";
 $request_result = mysqli_query($conn, $request_query);
+
+// Check if a friend request has been sent by the profile user to the current user
+$received_request_query = "SELECT * FROM friend_requests WHERE sender_id = $profile_user_id AND receiver_id = $current_user_id AND status = 'pending'";
+$received_request_result = mysqli_query($conn, $received_request_query);
 
 // Check if the two users are already friends
 $friend_query = "
@@ -43,6 +47,7 @@ $friend_query = "
 $friend_result = mysqli_query($conn, $friend_query);
 
 $request_sent = mysqli_num_rows($request_result) > 0;
+$received_request = mysqli_num_rows($received_request_result) > 0;
 $is_friend = mysqli_num_rows($friend_result) > 0;
 
 // Fetch profile user's skills
@@ -185,7 +190,19 @@ $average_rating = $rating['average_rating'] ? round($rating['average_rating'], 2
                     <?php if ($is_friend): ?>
                         <button disabled>You are Friends</button>
                     <?php elseif ($request_sent): ?>
-                        <button disabled>Request Sent</button>
+                        <form method="POST" action="cancel_request.php">
+                            <input type="hidden" name="receiver_id" value="<?php echo $profile_user_id; ?>">
+                            <button type="submit">Cancel Request</button>
+                        </form>
+                    <?php elseif ($received_request): ?>
+                        <form method="POST" action="accept_request.php">
+                            <input type="hidden" name="sender_id" value="<?php echo $profile_user_id; ?>">
+                            <button type="submit">Accept Request</button>
+                        </form>
+                        <form method="POST" action="reject_request.php">
+                            <input type="hidden" name="sender_id" value="<?php echo $profile_user_id; ?>">
+                            <button type="submit">Reject Request</button>
+                        </form>
                     <?php else: ?>
                         <form method="POST" action="send_request.php">
                             <input type="hidden" name="receiver_id" value="<?php echo $profile_user_id; ?>">
