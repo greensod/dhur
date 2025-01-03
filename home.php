@@ -97,6 +97,7 @@ if (!empty($user_interests)) {
             font-size: 28px;
             font-weight: 700;
             color: #fff;
+            text-decoration: none;
         }
 
         .navbar .nav-links {
@@ -231,7 +232,8 @@ if (!empty($user_interests)) {
 </head>
 <body>
     <div class="navbar">
-        <span class="exchidea">EXCHIDEA</span>
+        <a href="home.php" class="exchidea">EXCHIDEA</a>
+
         <div class="search-bar">
             <form method="POST" action="search_results.php">
                 <select name="search_type" required>

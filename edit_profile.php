@@ -47,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
         margin: 0;
         padding: 0;
         display: flex;
-        flex-direction: column; /* Ensure the content follows the navbar */
-        height: 100vh; /* Full height for the body */
+        flex-direction: column; 
+        height: 100vh; 
     }
 
     .navbar {
@@ -62,17 +62,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 1000; /* Keep navbar on top */
+        z-index: 1000; 
     }
 
-    /* Left part of the navbar (logo) */
+    
     .navbar .exchidea {
         font-size: 24px;
         font-weight: bold;
         color: rgb(230, 160, 192);
+        text-decoration: none;
     }
 
-    /* Right part of the navbar (buttons) */
     .navbar .nav-links {
         display: flex;
         gap: 15px;
@@ -97,31 +97,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 10px; /* Compact padding */
+        padding: 10px; 
         width: 90%;
         max-width: 500px;
         height: auto;
         box-sizing: border-box;
-        margin-top: 80px; /* Space for the fixed navbar */
+        margin-top: 80px;
     }
 
     h1 {
         color: rgb(230, 160, 192);
         text-align: center;
-        margin-bottom: 8px; /* Slightly reduced margin */
+        margin-bottom: 8px; 
     }
 
     form label {
         font-weight: bold;
         display: block;
         color: #555;
-        margin-bottom: 2px; /* Reduced gap between label and input */
+        margin-bottom: 2px; 
     }
 
     form input, form select, form textarea {
         width: 100%;
         padding: 6px;
-        margin: 0 0 8px; /* Reduced bottom margin to tighten spacing */
+        margin: 0 0 8px; 
         border: 1px solid #ddd;
         border-radius: 5px;
         box-sizing: border-box;
@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     }
 
     form textarea {
-        resize: none; /* Prevent resizing */
+        resize: none; 
     }
 
     form button {
@@ -150,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
 
     p {
         text-align: center;
-        margin-bottom: 8px; /* Slightly reduced margin */
+        margin-bottom: 8px; 
     }
 </style>
 
@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
 <body>
 
 <div class="navbar">
-    <span class="exchidea">EXCHIDEA</span>
+    <a href="home.php" class="exchidea">EXCHIDEA</a>
     
     <div class="nav-links">
         <a href="profile.php">Profile</a>

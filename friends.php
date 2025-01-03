@@ -78,6 +78,7 @@ $friends = getFriendsList($current_user_id);
             font-size: 24px;
             font-weight: bold;
             color: rgb(230, 160, 192);
+            text-decoration: none;
         }
 
         .navbar .nav-links {
@@ -230,7 +231,7 @@ $friends = getFriendsList($current_user_id);
 <body>
 
 <div class="navbar">
-    <span class="exchidea">EXCHIDEA</span>
+    <a href="home.php" class="exchidea">EXCHIDEA</a>
     <div class="nav-links">
         <a href="home.php">Home</a>
         <a href="profile.php">Profile</a>

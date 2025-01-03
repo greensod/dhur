@@ -155,7 +155,8 @@
                     exit();
                 }
 
-                $query = "SELECT DISTINCT u.user_id, u.email FROM user u JOIN reports r ON u.user_id = r.reported_user_id";
+                $query = "SELECT DISTINCT u.user_id, u.email FROM user u JOIN reports r ON u.user_id = r.reported_user_id WHERE u.is_banned = 0";
+
                 $stmt = $conn->prepare($query);
                 $stmt->execute();
                 $stmt->bind_result($user_id, $user_email);
