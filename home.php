@@ -68,140 +68,164 @@ if (!empty($user_interests)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <style>
-        /* Prevent horizontal scrolling */
-        body {
+        /* General reset for margin and padding */
+        * {
             margin: 0;
             padding: 0;
-            width: 100%;
             box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9eaf0;
+            color: #4a4a4a;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
         .navbar {
             width: 100%;
-            background-color: rgba(249, 234, 240, 0.9);
-            padding: 10px 20px;
+            background-color: #e6a0c0;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .navbar .exchidea {
-            font-size: 24px;
-            font-weight: bold;
-            color: rgb(230, 160, 192);
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
         }
 
         .navbar .nav-links {
             display: flex;
-            gap: 15px;
-            margin-right: 30px;
+            gap: 20px;
         }
 
         .navbar .nav-links a {
             text-decoration: none;
-            padding: 6px 10px;
-            background-color: rgb(230, 182, 206);
-            color: rgb(161, 96, 97);
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 14px;
+            color: #fff;
+            padding: 8px 16px;
+            background-color: #e09da8;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
 
         .navbar .nav-links a:hover {
-            background-color: rgb(156, 167, 177);
+            background-color: #a3acb1;
         }
 
         .navbar .search-bar {
             display: flex;
-            gap: 5px;
+            gap: 8px;
             align-items: center;
             flex-grow: 1;
-            max-width: 400px;
-            margin: 0 auto;
+            max-width: 450px;
         }
 
         .navbar .search-bar select,
         .navbar .search-bar input,
         .navbar .search-bar button {
-            padding: 5px;
+            padding: 10px;
             font-size: 14px;
-            color: rgb(161, 96, 97);
-            font-weight: bold;
-
+            color: #4a4a4a;
+            font-weight: 600;
+            border: 1px solid #e09da8;
+            border-radius: 5px;
         }
-        
+
         .navbar .search-bar input {
-            width: 200px;
-            font-weight: bold;
+            width: 250px;
+        }
+
+        .navbar .search-bar button {
+            background-color: #e09da8;
+            color: #fff;
+            cursor: pointer;
         }
 
         .navbar .search-bar button:hover {
-            background-color: rgb(156, 167, 177);
+            background-color: #a3acb1;
         }
 
         .centered-heading {
             text-align: center;
-            margin: 0;
-            padding-bottom: 5px;
-            margin-top: 100px;
+            font-size: 24px;
+            margin-top: 80px;
+            color: #4a4a4a;
         }
 
         .matches-table {
-            width: 40%;
+            width: 60%;
+            margin: 30px auto;
             border-collapse: collapse;
-            margin: 0 auto;
-            font-size: 18px;
-            background-color: rgba(249, 234, 240, 0.9);
+            background-color: #f5d0c7;
+        }
+
+        .matches-table th,
+        .matches-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #f1a7b8;
+        }
+
+        .matches-table th {
+            background-color: #f0c0c6;
+            color: #4a4a4a;
+        }
+
+        .matches-table tr:nth-child(even) {
+            background-color: #f9eaf0;
         }
 
         .matches-table a {
             text-decoration: none;
-            color: black;
+            color: #4a4a4a;
         }
 
-        .matches-table th, .matches-table td {
-            border: 1px solid rgb(243, 189, 189);
-            padding: 10px;
-            text-align: left;
-        }
-
-        .matches-table th {
-            background-color: #efc9c9;
-        }
-
-        .search-bar button {
-            text-decoration: none;
-            padding: 6px 10px;
-            background-color: rgb(230, 182, 206);
-            color: white;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 14px;
-            border: none;
+        .matches-table a:hover {
+            text-decoration: underline;
         }
 
         .matches-table .heading {
-            color: white;
+            color: #4a4a4a;
         }
 
-        /* Notification dot for pending friend requests */
         .friends-button {
             position: relative;
             display: inline-block;
         }
 
         .red-dot {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             background-color: red;
             border-radius: 50%;
             position: absolute;
-            top: 0;
-            right: 0;
-            transform: translate(50%, -50%);
+            top: -5px;
+            right: -5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-top: 40px;
+            color: #4a4a4a;
+        }
+
+        p {
+            text-align: center;
+            font-size: 18px;
+            color: #6c6c6c;
+        }
+
+        strong {
+            color: #e09da8;
         }
     </style>
 </head>

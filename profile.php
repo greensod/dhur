@@ -75,110 +75,193 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <style>
-        .profile-picture {
-            padding-top: 50px;
-            text-align: center;
-            margin: 20px;
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    .navbar {
+    width: 100%;
+    background-color: #ffe4e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.container {
+    margin-top: 80px; /* Add margin to avoid overlapping with the fixed navbar */
+}
+
+
+    .navbar .exchidea {
+        font-size: 24px;
+        font-weight: bold;
+        color: #e892a3;
+        margin-right: 20px;
+    }
+
+    .navbar .nav-links {
+        display: flex;
+        gap: 10px;
+    }
+
+    .navbar .nav-links a {
+        text-decoration: none;
+        padding: 8px 15px;
+        background-color: #f7d9dc;
+        color: #933a4d;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+    .navbar .nav-links a:hover {
+        background-color: #e0c4c8;
+    }
+
+    .profile-picture {
+        padding-top: 80px;
+        text-align: center;
+        margin: 20px;
+    }
+
+    .profile-picture img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-top: 5px;
+        border: 3px solid #e892a3;
+    }
+
+    .profile-form {
+        text-align: center;
+        margin: 20px;
+    }
+
+    .file-label {
+        padding: 10px 20px;
+        background-color: #ffe4e6;
+        color: #933a4d;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+        margin-bottom: 0px;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .file-label:hover {
+        background-color: #e0c4c8;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        background-color: #ffe4e6;
+        color: #933a4d;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #e0c4c8;
+    }
+
+    .user-details {
+        margin: 40px 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-details h2 {
+        margin-bottom: 20px;
+        color: #933a4d;
+    }
+
+    .user-details p {
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 10px;
+    }
+
+    .user-skills {
+        margin: 40px 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-skills h2 {
+        margin-bottom: 20px;
+        color: #933a4d;
+    }
+
+    .user-skills table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #f9f9f9;
+        font-size: 16px;
+    }
+
+    .user-skills th, .user-skills td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .user-skills th {
+        background-color: #ffe4e6;
+        color: #933a4d;
+        font-weight: bold;
+    }
+
+    .user-skills td {
+        background-color: #fff;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 10px;
         }
-        .profile-picture img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-top: 5px;
-        }
-        .profile-form {
-            text-align: center;
-            margin: 20px;
-        }
-        .file-label {
-            padding: 10px 20px;
-            background-color: rgb(232, 188, 210);
-            color: white;
-            border: none;
-            cursor: pointer;
-            display: inline-block;
-            margin-bottom: 0px;
-        }
-        .file-label:hover {
-            background-color: rgb(156, 167, 177);
-        }
-        .btn{
-            padding: 10px 20px;
-            background-color: rgb(230, 182, 206);
-            color: rgb(161, 96, 97);
-            border: none;
-            cursor: pointer;
-            font-weight: bold
-        }
-        .btn:hover {
-            background-color: rgb(156, 167, 177);
-        }
-        .user-details {
-            margin: 20px;
-        }
-        .user-details p {
-            font-size: 16px;
-            line-height: 1.8;
-        }
+
         .navbar {
-            width: 100%;
-            background-color: rgba(249, 234, 240, 0.9); 
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: fixed;
-            top: 0;
-            z-index: 1000; 
-            box-sizing: border-box;
+            flex-wrap: wrap;
         }
-        .navbar .exchidea {
-            font-size: 24px;
-            font-weight: bold;
-            color: rgb(230, 160, 192);
-            margin-right: 20px; 
-        }
+
         .navbar .nav-links {
-            display: flex;
-            gap: 7px;
+            flex-direction: column;
+            align-items: center;
         }
+
         .navbar .nav-links a {
-            text-decoration: none;
-            padding: 6px 10px;
-            background-color: rgb(230, 182, 206);
-            color:rgb(161, 96, 97);
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        .navbar .nav-links a:hover {
-            background-color: rgb(156, 167, 177);
-        }
-        .user-skills table {
-            width: 80%; 
-            margin: 20px auto; 
-            border-collapse: collapse;
-            background-color: rgba(249, 234, 240, 0.9); 
-            font-size: 16px;
+            margin: 5px 0;
         }
 
-        .user-skills th, .user-skills td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: center;
+        .profile-picture img {
+            width: 120px;
+            height: 120px;
         }
+    }
+</style>
 
-        .user-skills th {
-            background-color: rgb(230, 182, 206); 
-            color: rgb(161, 96, 97);
-        }
-
-        .user-skills td {
-            background-color: white; 
-        }
-    </style>
     <script>
         function previewImage(event) {
             const output = document.getElementById('profilePicturePreview');
