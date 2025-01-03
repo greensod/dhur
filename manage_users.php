@@ -127,6 +127,16 @@
     </div>
     <div class="container">
         <div class="title">Manage Users</div>
+
+        <!-- Display success or failure message -->
+        <?php
+        if (isset($_GET['ban']) && $_GET['ban'] == 'success') {
+            echo '<p style="color: green; text-align: center;">Ban successful!</p>';
+        } elseif (isset($_GET['ban']) && $_GET['ban'] == 'failed') {
+            echo '<p style="color: red; text-align: center;">Failed to ban the user, please try again.</p>';
+        }
+        ?>
+
         <table class="users-table">
             <thead>
                 <tr>
@@ -155,7 +165,7 @@
                         <td><?php echo htmlspecialchars($user_id); ?></td>
                         <td><?php echo htmlspecialchars($user_email); ?></td>
                         <td>
-                            <form action="ban_user/ban.php" method="POST"> <!-- Updated path here -->
+                            <form action="ban_user.php" method="POST">
                                 <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
                                 <button class="btn" type="submit">Ban</button>
                             </form>

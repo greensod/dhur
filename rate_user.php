@@ -1,12 +1,4 @@
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-echo "GET friend_id: " . ($_GET['friend_id'] ?? 'Not Set') . "<br>";
-echo "POST friend_id: " . ($_POST['friend_id'] ?? 'Not Set') . "<br>";
-echo "Final friend_id: " . ($friend_id ?? 'Not Set') . "<br>";
-if (!isset($friend_id)) {
-    die("Friend ID not defined before usage!");
-}
+
 
 
 <!DOCTYPE html>
