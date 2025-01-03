@@ -152,6 +152,85 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
         text-align: center;
         margin-bottom: 8px; 
     }
+    @media (max-width: 768px) {
+    
+        .navbar {
+            padding: 10px;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .navbar .nav-links {
+            flex-direction: column;
+            gap: 10px;
+            margin-right: 0;
+            margin-top: 10px;
+        }
+
+        .container {
+            margin-top: 100px;
+            width: 95%;
+            padding: 15px;
+        }
+
+        h1 {
+            font-size: 22px;
+        }
+
+         label {
+            font-size: 13px;
+        }
+
+        form input,
+        form select,
+        form textarea {
+            font-size: 13px;
+        }
+
+        form button {
+            font-size: 14px;
+        }
+    }
+
+        @media (max-width: 480px) {
+    
+            .navbar {
+                padding: 8px;
+            }
+
+            .navbar .exchidea {
+                font-size: 20px;
+            }
+
+            .navbar .nav-links {
+                flex-direction: column;
+                gap: 8px;
+                margin-right: 0;
+            }
+
+            .container {
+                margin-top: 120px;
+                width: 100%;
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            form input,
+            form select,
+            form textarea {
+                padding: 5px;
+                font-size: 12px;
+            }
+
+            form button {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+
 </style>
 
 

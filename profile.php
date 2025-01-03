@@ -9,12 +9,12 @@ if (!isset($_SESSION['user_email'])) {
 
 $user_email = $_SESSION['user_email'];
 
-// Get user details
+
 $query = "SELECT user_id, fname, email, mobile, dob, gender, interests, profile_picture FROM user WHERE email = '$user_email'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 
-// Fetch user skills
+
 $skills_query = "SELECT skill_name FROM user_skills WHERE user_id = {$user['user_id']}";
 $skills_result = mysqli_query($conn, $skills_query);
 $skills = [];
@@ -22,7 +22,6 @@ while ($row = mysqli_fetch_assoc($skills_result)) {
     $skills[] = $row['skill_name'];
 }
 
-// Handle profile picture upload or removal
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_FILES['profile_picture'])) {
         if ($_FILES['profile_picture']['error'] != 0) {
@@ -50,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     } elseif (isset($_POST['remove_picture'])) {
-        // Remove profile picture
+        
         $update_query = "UPDATE user SET profile_picture = NULL WHERE email = '$user_email'";
         if (mysqli_query($conn, $update_query)) {
             if ($user['profile_picture']) {
@@ -99,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 .container {
-    margin-top: 80px; /* Add margin to avoid overlapping with the fixed navbar */
+    margin-top: 80px; 
 }
 
 
@@ -286,7 +285,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="profile-picture">
             <?php if ($user['profile_picture']): ?>
                 <img src="uploads/profile_pictures/<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Profile Picture">
-                <!-- Remove picture form -->
+                
                 <form action="profile.php" method="POST" class="profile-form">
                     <input type="hidden" name="remove_picture" value="1">
                     <button type="submit" class="btn" onclick="return confirm('Are you sure you want to remove the picture?');">
@@ -297,7 +296,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <img src="images/default_profile_picture.jpg" alt="Default Profile Picture">
             <?php endif; ?>
 
-            <!-- Upload picture form -->
+            
             <form action="profile.php" method="POST" enctype="multipart/form-data">
                 <?php if (!$user['profile_picture']): ?>
                     <label for="profile_picture" class="file-label">Select Picture</label>
