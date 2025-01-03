@@ -15,8 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
-            // Redirect to manage_users.php with success message
-            header("Location: manage_users.php?ban=success");
+            // Add debug statement before redirect
+            echo "User banned successfully. Redirecting...";
+            header("Location: manage_users.php");
             exit;
         } else {
             echo "Failed to ban the user. Please try again.";
