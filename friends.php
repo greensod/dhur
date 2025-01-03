@@ -272,7 +272,8 @@ $friends = getFriendsList($current_user_id);
                     <button type="submit" name="action" value="unfriend">Unfriend</button>
                     <button type="submit" name="action" value="rate">Rate</button>
                     <button type="submit" name="action" value="report">Report</button>
-                    <button type="button" onclick="openChatModal(<?php echo $friend['user_id']; ?>)">Chat</button>
+                    <button type="button" data-friend-id="<?php echo $friend['user_id']; ?>" onclick="openChatModal(<?php echo $friend['user_id']; ?>)">Chat</button>
+
                 </form>
             </li>
         <?php endwhile; ?>
@@ -347,6 +348,24 @@ $friends = getFriendsList($current_user_id);
     span.onclick = function() {
         chatModal.style.display = "none";
     }
+    function checkUnreadMessages() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "check_unread.php", true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var unreadCounts = JSON.parse(xhr.responseText);
+                unreadCounts.forEach(function(entry) {
+                    var chatButton = document.querySelector(`button[data-friend-id='${entry.sender_id}']`);
+                    if (chatButton) {
+                        chatButton.textContent += ` (${entry.unread_count} unread)`;
+                    }
+                });
+            }
+        };
+        xhr.send();
+    }
+
+    document.addEventListener("DOMContentLoaded", checkUnreadMessages);
 </script>
 
 </body>
