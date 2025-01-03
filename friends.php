@@ -90,7 +90,7 @@ $friends = getFriendsList($current_user_id);
             text-decoration: none;
             padding: 6px 10px;
             background-color: rgb(230, 182, 206);
-            color: white;
+            color: rgb(161, 96, 97);
             border-radius: 5px;
             font-weight: bold;
             font-size: 14px;
@@ -205,7 +205,7 @@ $friends = getFriendsList($current_user_id);
 
         .request-list button, .friends-list button {
             background-color: rgb(230, 182, 206);
-            color: white;
+            color: rgb(161, 96, 97);
             border-radius: 5px;
             padding: 5px 10px;
             font-weight: bold;
@@ -218,7 +218,7 @@ $friends = getFriendsList($current_user_id);
         .friends-list li a {
             padding: 6px 10px;
             background-color: rgb(230, 182, 206);
-            color: white;
+            color: rgb(161, 96, 97);
             border-radius: 5px;
         }
 
