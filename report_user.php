@@ -73,24 +73,137 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report User</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8e8e9; /* Dusky rose pink */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Centered container for the form */
+        .container {
+            background-color: #ffffff; /* White card-style background */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* Heading styling */
+        h1 {
+            color: #a05268; /* Darker dusky pink */
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Label styling */
+        label {
+            font-weight: bold;
+            color: #555;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        /* Input and textarea styling */
+        input[type="number"], textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: none;
+            font-size: 14px;
+        }
+
+        /* Textarea specific styling */
+        textarea {
+            min-height: 120px;
+            font-size: 16px;
+        }
+
+        /* Button styling */
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #a05268; /* Dusky rose pink */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #903f57; /* Darker shade for hover */
+            transform: translateY(-2px); /* Small hover effect */
+        }
+
+        /* Success or error message styling */
+        p {
+            text-align: center;
+            font-size: 16px;
+            color: #a05268;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            textarea {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Report User</h1>
-    
-    <!-- Display success or error message -->
-    <?php 
-    if (isset($message)) { 
-        echo "<p>$message</p>"; 
-    }
-    if (isset($_GET['success']) && $_GET['success'] == 1) {
-        echo "<p>Report submitted successfully!</p>";
-    }
-    ?>
+    <div class="container">
+        <h1>Report User</h1>
+        
+        <!-- Display success or error message -->
+        <?php 
+        if (isset($message)) { 
+            echo "<p>$message</p>"; 
+        }
+        if (isset($_GET['success']) && $_GET['success'] == 1) {
+            echo "<p>Report submitted successfully!</p>";
+        }
+        ?>
 
-    <form method="POST">
-        <label for="report_reason">Reason for Reporting:</label><br>
-        <textarea id="report_reason" name="report_reason" rows="4" cols="50" required></textarea><br><br>
-        <button type="submit">Submit Report</button>
-    </form>
+        <form method="POST">
+            <label for="report_reason">Reason for Reporting:</label><br>
+            <textarea id="report_reason" name="report_reason" rows="4" cols="50" required></textarea><br><br>
+            <button type="submit">Submit Report</button>
+        </form>
+    </div>
 </body>
 </html>
