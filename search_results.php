@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 24px;
             font-weight: bold;
             color: rgb(230, 160, 192);
+            text-decoration: none;
         }
         .navbar .nav-links a {
             text-decoration: none;
@@ -158,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <div class="navbar">
-        <span class="exchidea">EXCHIDEA</span>
+        <a href="home.php" class="exchidea">EXCHIDEA</a>
         <div class="search-bar">
             <form method="POST" action="search_results.php">
                 <select name="search_type" required>

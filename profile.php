@@ -108,6 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         font-weight: bold;
         color: #e892a3;
         margin-right: 20px;
+        text-decoration: none;
     }
 
     .navbar .nav-links {
@@ -273,7 +274,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container">
         <div class="navbar">
-            <span class="exchidea">EXCHIDEA</span>
+            <a href="home.php" class="exchidea">EXCHIDEA</a>
             <div class="nav-links">
                 <a href="edit_profile.php">Edit Profile</a>
                 <a href="add_skills.php">Add Skills</a> 
