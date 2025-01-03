@@ -220,7 +220,11 @@ body
     outline: none;
     transition: all 0.5s ease;
 }
-
+.container .reg-ad{
+    text-decoration: none;
+    color: rgb(161, 96, 97);
+    font-weight: bold;
+}
 
 @media (max-width: 420px)
 {

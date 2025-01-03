@@ -28,14 +28,12 @@
             </div>
         </form>
 
-        <p>Don't have an account? <a href="form.php">Register here</a>.</p>
+        <p>Don't have an account? <a href="form.php" class="reg-ad">Register here</a>.</p>
+        <p>Are you an admin? <a href="admin_login.php" class="reg-ad">Login here</a>.</p>
         <div class="back">
             <input type="button" value="Go Back" class="btn" onclick="window.location.href='index.php'">
         </div>
-        <!-- Add a button for admin login -->
-<a href="admin_login.php">
-    <input type="button" value="Admin Login" class="btn">
-</a>
+
 
     </div>
 </body>

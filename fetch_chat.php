@@ -29,6 +29,11 @@ if (isset($_GET['friend_id'])) {
     ";
     $result = mysqli_query($conn, $query);
     $messages = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    // Mark unread messages from the friend as read
+    $update_query = "UPDATE messages SET is_read = 1 WHERE sender_id = $friend_id AND receiver_id = $current_user_id AND is_read = 0";
+    mysqli_query($conn, $update_query);
+
     echo json_encode($messages);
 }
 ?>

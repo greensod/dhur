@@ -90,7 +90,7 @@ $friends = getFriendsList($current_user_id);
             text-decoration: none;
             padding: 6px 10px;
             background-color: rgb(230, 182, 206);
-            color: white;
+            color: rgb(161, 96, 97);
             border-radius: 5px;
             font-weight: bold;
             font-size: 14px;
@@ -205,7 +205,7 @@ $friends = getFriendsList($current_user_id);
 
         .request-list button, .friends-list button {
             background-color: rgb(230, 182, 206);
-            color: white;
+            color: rgb(161, 96, 97);
             border-radius: 5px;
             padding: 5px 10px;
             font-weight: bold;
@@ -218,7 +218,7 @@ $friends = getFriendsList($current_user_id);
         .friends-list li a {
             padding: 6px 10px;
             background-color: rgb(230, 182, 206);
-            color: white;
+            color: rgb(161, 96, 97);
             border-radius: 5px;
         }
 
@@ -272,7 +272,8 @@ $friends = getFriendsList($current_user_id);
                     <button type="submit" name="action" value="unfriend">Unfriend</button>
                     <button type="submit" name="action" value="rate">Rate</button>
                     <button type="submit" name="action" value="report">Report</button>
-                    <button type="button" onclick="openChatModal(<?php echo $friend['user_id']; ?>)">Chat</button>
+                    <button type="button" data-friend-id="<?php echo $friend['user_id']; ?>" onclick="openChatModal(<?php echo $friend['user_id']; ?>)">Chat</button>
+
                 </form>
             </li>
         <?php endwhile; ?>
@@ -347,6 +348,24 @@ $friends = getFriendsList($current_user_id);
     span.onclick = function() {
         chatModal.style.display = "none";
     }
+    function checkUnreadMessages() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "check_unread.php", true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var unreadCounts = JSON.parse(xhr.responseText);
+                unreadCounts.forEach(function(entry) {
+                    var chatButton = document.querySelector(`button[data-friend-id='${entry.sender_id}']`);
+                    if (chatButton) {
+                        chatButton.textContent += ` (${entry.unread_count} unread)`;
+                    }
+                });
+            }
+        };
+        xhr.send();
+    }
+
+    document.addEventListener("DOMContentLoaded", checkUnreadMessages);
 </script>
 
 </body>
