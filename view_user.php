@@ -46,12 +46,12 @@ $request_sent = mysqli_num_rows($request_result) > 0;
 $is_friend = mysqli_num_rows($friend_result) > 0;
 
 // Fetch profile user's skills
-$query_skills = "SELECT skill_name FROM user_skills WHERE user_id = $profile_user_id";
+$query_skills = "SELECT skill_name, level, duration FROM user_skills WHERE user_id = $profile_user_id";
 $result_skills = mysqli_query($conn, $query_skills);
 
 $skills = [];
 while ($row = mysqli_fetch_assoc($result_skills)) {
-    $skills[] = $row['skill_name'];
+    $skills[] = $row;
 }
 
 // Fetch profile user's rating average
@@ -68,151 +68,153 @@ $average_rating = $rating['average_rating'] ? round($rating['average_rating'], 2
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Profile</title>
     <style>
+        /* General Styles */
         body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: rgb(237, 207, 222);
-}
-
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 20px;
-}
-
-h1 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 10px;
-}
-
-.skills-list {
-    margin-top: 20px;
-    text-align: left;
-    padding-left: 20px;
-}
-
-.skills-list h3 {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.skills-list li {
-    font-size: 16px;
-    color: #555;
-}
-
-.rating-summary {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f9e6f1;
-    border-radius: 10px;
-    border: 1px solid #ff99cc;
-}
-
-.reviews {
-    margin-top: 20px;
-    text-align: left;
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.review-item {
-    margin-bottom: 15px;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.review-item:last-child {
-    border-bottom: none;
-}
-
-.reviewer-name {
-    font-weight: bold;
-    color: #333;
-}
-
-.review-text {
-    margin-top: 5px;
-    color: #555;
-}
-
-.rating {
-    color: #ff9900;
-    font-size: 14px;
-}
-
-button {
-    background-color: rgb(240, 164, 201);
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: rgb(156, 167, 177);
-}
-
-.back-link {
-    display: inline-block;
-    margin-top: 20px;
-    color: #ff4d94;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(237, 207, 222);
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        .profile-info {
+            flex-grow: 1;
+        }
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+        }
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+        .add-friend {
+            margin-left: auto;
+        }
+        button {
+            background-color: rgb(240, 164, 201);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: rgb(156, 167, 177);
+        }
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .skills-table th, .skills-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .skills-table th {
+            background-color: rgb(230, 182, 206);
+            color: rgb(161, 96, 97);
+        }
+        .rating-summary {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9e6f1;
+            border-radius: 10px;
+            border: 1px solid #ff99cc;
+        }
+        .review-form {
+            margin-top: 20px;
+        }
+        .review-form .btn {
+            color: rgb(161, 96, 97);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: rgb(161, 96, 97);
+            text-decoration: none;
+            font-size: 16px;
+            background-color:  rgb(230, 182, 206);
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1><?php echo htmlspecialchars($profile_user['fname']); ?></h1>
-        <p><strong>Interests:</strong> <?php echo htmlspecialchars($profile_user['interests']); ?></p>
+        <div class="header">
+            <?php if (!empty($profile_user['profile_picture'])): ?>
+                <img src="uploads/profile_pictures/<?php echo htmlspecialchars($profile_user['profile_picture']); ?>" 
+                     alt="Profile Picture" class="profile-picture">
+            <?php else: ?>
+                <img src="images/default_profile_picture.jpg" 
+                     alt="Default Profile Picture" class="profile-picture">
+            <?php endif; ?>
 
-        <?php if (!empty($profile_user['profile_picture'])): ?>
-            <img src="uploads/profile_pictures/<?php echo htmlspecialchars($profile_user['profile_picture']); ?>" 
-                 alt="Profile Picture" class="profile-picture">
-        <?php else: ?>
-            <img src="uploads/profile_pictures/default.png" 
-                 alt="Default Profile Picture" class="profile-picture">
-        <?php endif; ?>
+            <div class="profile-info">
+                <h1><?php echo htmlspecialchars($profile_user['fname']); ?></h1>
+                <p><strong>Interests:</strong> <?php echo htmlspecialchars($profile_user['interests']); ?></p>
+            </div>
+
+            <?php if ($profile_user_id != $current_user_id): ?>
+                <div class="add-friend">
+                    <?php if ($is_friend): ?>
+                        <button disabled>You are Friends</button>
+                    <?php elseif ($request_sent): ?>
+                        <button disabled>Request Sent</button>
+                    <?php else: ?>
+                        <form method="POST" action="send_request.php">
+                            <input type="hidden" name="receiver_id" value="<?php echo $profile_user_id; ?>">
+                            <button type="submit">Add Friend</button>
+                        </form>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+        </div>
 
         <?php if (!empty($skills)): ?>
-            <div class="skills-list">
-                <h3>Skills:</h3>
-                <ul>
+            <table class="skills-table">
+                <thead>
+                    <tr>
+                        <th>Skill Name</th>
+                        <th>Level</th>
+                        <th>Availability</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <?php foreach ($skills as $skill): ?>
-                        <li><?php echo htmlspecialchars($skill); ?></li>
+                        <tr>
+                            <td><?php echo htmlspecialchars($skill['skill_name']); ?></td>
+                            <td><?php echo htmlspecialchars($skill['level']); ?>/5</td>
+                            <td><?php echo htmlspecialchars($skill['duration']); ?></td>
+                        </tr>
                     <?php endforeach; ?>
-                </ul>
-            </div>
+                </tbody>
+            </table>
         <?php else: ?>
             <p>No skills listed.</p>
         <?php endif; ?>
@@ -221,25 +223,12 @@ button:hover {
             <p><strong>Average Rating:</strong> <?php echo $average_rating; ?> / 5</p>
         </div>
 
-        <form action="review_page.php" method="get">
-    <input type="hidden" name="user_id" value="<?php echo $profile_user_id; ?>">
-    <button type="submit">View Reviews</button>
-</form>
-
-        <?php if ($profile_user_id != $current_user_id): ?>
-            <?php if ($is_friend): ?>
-                <p>You are already friends with this user.</p>
-            <?php elseif ($request_sent): ?>
-                <p>Friend request already sent.</p>
-            <?php else: ?>
-                <form method="POST" action="send_request.php">
-                    <input type="hidden" name="receiver_id" value="<?php echo $profile_user_id; ?>">
-                    <button type="submit">Add Friend</button>
-                </form>
-            <?php endif; ?>
-        <?php endif; ?>
+        <form action="review_page.php" method="get" class="review-form">
+            <input type="hidden" name="user_id" value="<?php echo $profile_user_id; ?>">
+            <button type="submit" class="btn">View Reviews</button>
+        </form>
 
         <a href="home.php" class="back-link">Back to Home</a>
     </div>
 </body>
-</html>+
+</html>
