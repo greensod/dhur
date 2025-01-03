@@ -155,7 +155,7 @@
                         <td><?php echo htmlspecialchars($user_id); ?></td>
                         <td><?php echo htmlspecialchars($user_email); ?></td>
                         <td>
-                            <form action="ban_user.php" method="POST">
+                            <form action="ban_user/ban.php" method="POST"> <!-- Updated path here -->
                                 <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
                                 <button class="btn" type="submit">Ban</button>
                             </form>
