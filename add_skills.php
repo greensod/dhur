@@ -9,13 +9,12 @@ if (!isset($_SESSION['user_email'])) {
 
 $user_email = $_SESSION['user_email'];
 
-// Get the user ID
 $query = "SELECT user_id FROM user WHERE email = '$user_email'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 $user_id = $user['user_id'];
 
-// Fetch user skills
+
 $skills_query = "SELECT skill_id, skill_name, level, duration FROM user_skills WHERE user_id = $user_id";
 $skills_result = mysqli_query($conn, $skills_query);
 $skills = [];
@@ -23,7 +22,6 @@ while ($row = mysqli_fetch_assoc($skills_result)) {
     $skills[] = $row;
 }
 
-// Add new skill
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_skill'])) {
     $skill_name = mysqli_real_escape_string($conn, $_POST['skill_name']);
     $level = mysqli_real_escape_string($conn, $_POST['level']);
@@ -43,12 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_skill'])) {
     }
 }
 
-// Remove skill
+
 if (isset($_GET['remove_skill_id'])) {
     $skill_id = $_GET['remove_skill_id'];
     $delete_query = "DELETE FROM user_skills WHERE skill_id = $skill_id AND user_id = $user_id";
     if (mysqli_query($conn, $delete_query)) {
-        header("Location: add_skills.php"); // Reload the page to reflect removed skill
+        header("Location: add_skills.php"); 
         exit;
     } else {
         $error_message = "Error removing skill: " . mysqli_error($conn);
@@ -63,7 +61,6 @@ if (isset($_GET['remove_skill_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Skills</title>
     <style>
-        /* Add some styles for form layout */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -146,11 +143,66 @@ if (isset($_GET['remove_skill_id'])) {
         .back-to-profile:hover {
             background-color: rgb(156, 167, 177);
         }
+        @media (max-width: 768px) {
+    
+        .form-container {
+            max-width: 100%;
+            padding: 10px;
+        }
+        .form-container h2 {
+            font-size: 18px;
+        }   
+        .form-container button {
+            padding: 8px 16px;
+        }
+        .back-to-profile {
+            padding: 8px 16px;
+        }
+
+        .skill-list li {
+            font-size: 14px;
+        }
+        }
+
+        @media (max-width: 480px) {
+    
+            .form-container {
+                padding: 8px;
+            }
+
+            .form-container h2 {
+                font-size: 16px;
+            }
+    
+            .form-container input,
+            .form-container select {
+                padding: 6px;
+            }
+
+
+            .form-container button {
+                padding: 6px 14px;
+            }
+
+            .back-to-profile {
+                padding: 6px 14px;
+            }
+
+            .skill-list li {
+                font-size: 12px;
+            }
+
+            .skill-list button {
+                padding: 6px 10px;
+            }
+   
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- Back to Profile Button -->
+    
     <a href="profile.php" class="back-to-profile">Back to Profile</a>
 
     <div class="form-container">

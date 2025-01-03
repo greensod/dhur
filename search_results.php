@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_email'])) {
 $user_email = $_SESSION['user_email'];
 $user_name = $_SESSION['user_name'];
 
-// Check if the search form was submitted
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $search_type = mysqli_real_escape_string($conn, $_POST['search_type']);
     $search_term = mysqli_real_escape_string($conn, $_POST['search_term']);
@@ -154,6 +154,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color:  rgb(156, 167, 177);
             cursor: pointer;
         }
+        @media (max-width: 480px) {
+            .navbar { 
+                padding: 8px; 
+                flex-direction: column; 
+            }
+            .navbar .exchidea { 
+                font-size: 20px; 
+            }
+            .navbar .nav-links { 
+                flex-direction: column; 
+                gap: 8px; 
+            }
+            .navbar .nav-links a { 
+                font-size: 12px; 
+            }
+            .matches-table { 
+                width: 95%; 
+                font-size: 14px; 
+            }
+            .matches-table th, .matches-table td { 
+                padding: 8px; 
+            }
+            .search-bar select, .search-bar input, .search-bar button { 
+                padding: 4px; 
+                font-size: 12px; 
+            }
+            .view-btn { 
+                padding: 6px 10px; 
+                font-size: 12px; 
+            }
+}
+
 
     </style>
 </head>

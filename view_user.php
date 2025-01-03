@@ -7,21 +7,21 @@ if (!isset($_SESSION['user_email'])) {
     exit;
 }
 
-// Get the logged-in user's ID based on their email
+
 $user_email = $_SESSION['user_email'];
 $query = "SELECT user_id FROM user WHERE email = '$user_email'";
 $result = mysqli_query($conn, $query);
 $current_user = mysqli_fetch_assoc($result);
 $current_user_id = $current_user['user_id'];
 
-// Check for a valid profile user ID
+
 if (!isset($_GET['user_id']) || !is_numeric($_GET['user_id'])) {
     die("Invalid user ID.");
 }
 
 $profile_user_id = $_GET['user_id'];
 
-// Fetch profile user's details (name, interests, profile picture)
+
 $query = "SELECT fname, interests, profile_picture FROM user WHERE user_id = $profile_user_id";
 $result = mysqli_query($conn, $query);
 
@@ -31,15 +31,15 @@ if (!$result || mysqli_num_rows($result) === 0) {
 
 $profile_user = mysqli_fetch_assoc($result);
 
-// Check if a friend request has been sent by the current user to the profile user
+
 $request_query = "SELECT * FROM friend_requests WHERE sender_id = $current_user_id AND receiver_id = $profile_user_id AND status = 'pending'";
 $request_result = mysqli_query($conn, $request_query);
 
-// Check if a friend request has been sent by the profile user to the current user
+
 $received_request_query = "SELECT * FROM friend_requests WHERE sender_id = $profile_user_id AND receiver_id = $current_user_id AND status = 'pending'";
 $received_request_result = mysqli_query($conn, $received_request_query);
 
-// Check if the two users are already friends
+
 $friend_query = "
     SELECT * FROM friends 
     WHERE (user1_id = $current_user_id AND user2_id = $profile_user_id) 
@@ -50,7 +50,7 @@ $request_sent = mysqli_num_rows($request_result) > 0;
 $received_request = mysqli_num_rows($received_request_result) > 0;
 $is_friend = mysqli_num_rows($friend_result) > 0;
 
-// Fetch profile user's skills
+
 $query_skills = "SELECT skill_name, level, duration FROM user_skills WHERE user_id = $profile_user_id";
 $result_skills = mysqli_query($conn, $query_skills);
 
@@ -59,7 +59,6 @@ while ($row = mysqli_fetch_assoc($result_skills)) {
     $skills[] = $row;
 }
 
-// Fetch profile user's rating average
 $query_rating = "SELECT AVG(rating) as average_rating FROM ratings WHERE rated_user_id = $profile_user_id";
 $rating_result = mysqli_query($conn, $query_rating);
 $rating = mysqli_fetch_assoc($rating_result);
@@ -73,7 +72,7 @@ $average_rating = $rating['average_rating'] ? round($rating['average_rating'], 2
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Profile</title>
     <style>
-        /* General Styles */
+        
         body {
             font-family: Arial, sans-serif;
             margin: 0;
