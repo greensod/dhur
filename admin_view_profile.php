@@ -2,11 +2,11 @@
 session_start();
 include 'connection.php';
 
-// Enable error reporting for debugging
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Check if user_id is passed in the URL
+
 if (!isset($_GET['user_id'])) {
     echo "Error: No user ID specified.";
     exit;
@@ -14,11 +14,11 @@ if (!isset($_GET['user_id'])) {
 
 $user_id = $_GET['user_id'];
 
-// Initialize variables to avoid warnings
+
 $fname = $email = $profile_picture = $interests = "";
 $skills_result = null;
 
-// Fetch user details (fname, email, profile_picture, interests)
+
 $query = "SELECT fname, email, profile_picture, interests FROM user WHERE user_id = ?";
 $stmt = $conn->prepare($query);
 if ($stmt === false) {
@@ -30,17 +30,16 @@ $stmt->execute();
 $stmt->bind_result($fname, $email, $profile_picture, $interests);
 $result = $stmt->fetch();
 
-// Check if user details are fetched successfully
+
 if (!$result) {
     echo "No user found with ID: " . htmlspecialchars($user_id);
     $fname = "Unknown";
     $email = "N/A";
     $interests = "N/A";
 } else {
-    $stmt->close(); // Close the statement
+    $stmt->close(); 
 }
 
-// Fetch and display skills
 $skills_query = "SELECT skill_name, level, duration FROM user_skills WHERE user_id = ?";
 $skills_stmt = $conn->prepare($skills_query);
 if ($skills_stmt === false) {
@@ -59,15 +58,14 @@ $skills_result = $skills_stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <style>
-        /* General Styles */
-        /* General Styles */
+        
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f9f9f9;
-    overflow: hidden; /* Prevent scrolling */
-    height: 100vh; /* Make body take up full height */
+    overflow: hidden;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,7 +73,7 @@ body {
 
 html, body {
     width: 100%;
-    overflow: hidden; /* Prevent horizontal scrolling */
+    overflow: hidden;
 }
 
 h1, h2 {
@@ -84,7 +82,7 @@ h1, h2 {
     margin: 0;
 }
 
-/* Profile container */
+
 .profile-container {
     width: 100%;
     max-width: 600px;
@@ -93,7 +91,7 @@ h1, h2 {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    overflow: hidden; /* Prevent scroll within container */
+    overflow: hidden; 
     height: 100%;
 }
 
@@ -109,7 +107,7 @@ h1, h2 {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    table-layout: fixed; /* Prevent overflow */
+    table-layout: fixed; 
 }
 
 .skills-table th, .skills-table td {
@@ -144,33 +142,33 @@ h1, h2 {
     background-color: rgb(204, 139, 139);
 }
 
-/* Make buttons responsive */
+
 .email-button, .back-button {
-    width: 80%; /* Ensure buttons are within the screen size */
-    max-width: 300px; /* Limit maximum width */
+    width: 80%; 
+    max-width: 300px; 
 }
 
-/* Prevent overflow in smaller screens */
+
 @media screen and (max-width: 768px) {
     .profile-container {
-        padding: 15px; /* Reduce padding on smaller screens */
+        padding: 15px;
     }
 
     .skills-table td, .skills-table th {
-        padding: 8px; /* Adjust table padding for smaller screens */
+        padding: 8px; 
     }
 
     .profile-header img {
-        width: 120px; /* Adjust image size */
-        height: 120px; /* Adjust image size */
+        width: 120px; 
+        height: 120px; 
     }
 
     h1, h2 {
-        font-size: 1.5em; /* Adjust font size */
+        font-size: 1.5em; 
     }
 
     .email-button, .back-button {
-        width: 90%; /* Make buttons take up more width on smaller screens */
+        width: 90%; 
     }
 }
 
@@ -217,7 +215,6 @@ h1, h2 {
     <?php endif; ?>
 
     <?php 
-    // Encode the parameters for the Gmail link
     $subject = "Hello " . htmlspecialchars($fname);
     $body = "Hi " . htmlspecialchars($fname) . ",\n\nI wanted to reach out to you.\n\nBest regards,\nAdmin";
     $gmail_url = "https://mail.google.com/mail/?view=cm&fs=1&to=" . urlencode($email) . "&su=" . urlencode($subject) . "&body=" . urlencode($body);

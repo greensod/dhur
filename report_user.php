@@ -97,8 +97,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             max-width: 500px;
             text-align: center;
         }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%; 
+            background-color: #f7d9dc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000; 
+        }
 
-        
+        .navbar .exchidea {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e892a3;
+            text-decoration: none;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color:rgb(197, 149, 154);
+            color: #933a4d;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            margin-right: 35px;
+        }
+
+        .navbar .nav-links a:hover {
+            background-color:rgb(176, 194, 215);
+        }
         h1 {
             color:rgb(223, 161, 193);
             margin-bottom: 20px;
@@ -187,9 +226,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </style>
 </head>
 <body>
+    <div class="navbar">
+            <a href="home.php" class="exchidea">EXCHIDEA</a>
+            <div class="nav-links">
+                <a href="friends.php">Friends</a>
+                <a href="home.php">Home</a>
+            </div>
+    </div>
     <div class="container">
         <h1>Report User</h1>
-        
         
         <?php 
         if (isset($message)) { 

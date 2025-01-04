@@ -16,18 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $search_term = mysqli_real_escape_string($conn, $_POST['search_term']);
 
     if ($search_type === 'skill') {
-        $query = "
-            SELECT u.user_id, u.fname, us.skill_name, us.level, us.duration
-            FROM user u
-            JOIN user_skills us ON u.user_id = us.user_id
-            WHERE u.email != '$user_email' AND us.skill_name LIKE '%$search_term%'
-        ";
+        $query = "SELECT u.user_id, u.fname, us.skill_name, us.level, us.duration FROM user u JOIN user_skills us ON u.user_id = us.user_id WHERE u.email != '$user_email' AND us.skill_name LIKE '%$search_term%'";
     } elseif ($search_type === 'interest') {
-        $query = "
-            SELECT u.user_id, u.fname, u.interests
-            FROM user u
-            WHERE u.email != '$user_email' AND FIND_IN_SET('$search_term', u.interests)
-        ";
+        $query = "SELECT u.user_id, u.fname, u.interests FROM user u WHERE u.email != '$user_email' AND FIND_IN_SET('$search_term', u.interests) ";
     } else {
         $message = "Invalid search type selected.";
     }
@@ -62,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         body {
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            overflow-x: hidden; 
         }
 
         .navbar {
@@ -105,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-top: 60px;
         }
         .matches-table a {
-            text-decoration: none; /* Removes the underline */
+            text-decoration: none; 
             color: black;
         }
         .matches-table th, .matches-table td {
@@ -211,7 +202,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <!-- <h1>Search Results</h1> -->
 <?php if (isset($matches) && !empty($matches)): ?>
     <table class="matches-table">
         <thead>
@@ -224,13 +214,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php elseif ($search_type === 'interest'): ?>
                     <th>Matching Interests</th>
                 <?php endif; ?>
-                <th>Profile</th> <!-- Changed to "Actions" -->
+                <th>Profile</th> 
             </tr>
         </thead>
         <tbody>
             <?php foreach ($matches as $match): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($match['fname']); ?></td> <!-- Plain name without the link -->
+                    <td><?php echo htmlspecialchars($match['fname']); ?></td>
                     <?php if ($search_type === 'skill'): ?>
                         <td><?php echo htmlspecialchars($match['skill_name']); ?></td>
                         <td><?php echo htmlspecialchars($match['level']); ?></td>
@@ -238,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php elseif ($search_type === 'interest'): ?>
                         <td><?php echo htmlspecialchars($match['interests']); ?></td>
                     <?php endif; ?>
-                    <!-- View User button -->
+                    
                     <td>
                         <a href="view_user.php?user_id=<?php echo $match['user_id']; ?>" class="view-btn">View User</a>
                     </td>
