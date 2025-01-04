@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_email'])) {
 $user_email = $_SESSION['user_email'];
 $user_name = $_SESSION['user_name'];
 
-// Function to count pending friend requests
+
 function countPendingFriendRequests($user_id) {
     global $conn;
     $query = "SELECT COUNT(*) AS pending_count FROM friend_requests WHERE receiver_id = '$user_id' AND status = 'pending'";
@@ -19,22 +19,22 @@ function countPendingFriendRequests($user_id) {
     return $row['pending_count'];
 }
 
-// Get the current user's ID
+
 $query = "SELECT user_id FROM user WHERE email = '$user_email'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 $current_user_id = $user['user_id'];
 
-// Get the count of pending friend requests
+
 $pending_count = countPendingFriendRequests($current_user_id);
 
-// Get the logged-in user's interests
+
 $query = "SELECT interests FROM user WHERE email = '$user_email'";
 $result = mysqli_query($conn, $query);
 $user = mysqli_fetch_assoc($result);
 $user_interests = $user ? explode(',', $user['interests']) : [];
 
-// Fetch other users whose skills match the logged-in user's interests
+
 if (!empty($user_interests)) {
     $interests_condition = array_map(function ($interest) use ($conn) {
         return "FIND_IN_SET('" . mysqli_real_escape_string($conn, trim($interest)) . "', us.skill_name)";
@@ -68,7 +68,7 @@ if (!empty($user_interests)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <style>
-        /* General reset for margin and padding */
+        
         * {
             margin: 0;
             padding: 0;
@@ -228,6 +228,8 @@ if (!empty($user_interests)) {
         strong {
             color: #e09da8;
         }
+        
+        
     </style>
 </head>
 <body>
