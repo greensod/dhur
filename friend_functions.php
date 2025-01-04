@@ -68,4 +68,13 @@ function countPendingFriendRequests($user_id) {
     $row = mysqli_fetch_assoc($result);
     return $row['count'];
 }
+function hasUnreadMessages($current_user_id, $friend_id) {
+    global $conn;
+    $query = "SELECT COUNT(*) AS unread_count FROM messages 
+              WHERE receiver_id = '$current_user_id' AND sender_id = '$friend_id' AND is_read = 0";
+    $result = mysqli_query($conn, $query);
+    $data = mysqli_fetch_assoc($result);
+    return $data['unread_count'] > 0;
+}
+
 ?>

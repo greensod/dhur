@@ -63,11 +63,11 @@
         }
 
         .content-box {
-            background-color: rgba(175, 151, 151, 0.6); /* Semi-transparent background */
+            background-color: rgba(175, 151, 151, 0.6); 
             padding: 20px 40px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(154, 140, 140, 0.2);
-            max-width: 600px; /* Optional, for readability */
+            max-width: 600px; 
             margin: auto;
             margin-top: 140px;
             color:rgb(161, 96, 97);
